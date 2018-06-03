@@ -19,6 +19,16 @@ $factory->define(App\Models\Garden::class, function (Faker $faker) {
     ];
 });
 
+
+$factory->define(App\Models\PhotosPerGarden::class, function (Faker $faker) {
+    $gardens = Garden::all()->pluck('id')->toArray();
+    return [
+        'IdGarden' => $faker->randomElement($gardens),
+        'Photo' => 'photos/gardens/'.$faker->numberBetween($min = 1, $max = 14).'.jpg',
+    ];
+});
+
+
 $factory->define(App\Models\CollaboratorsPerGarden::class, function (Faker $faker) {
     $users = User::all()->pluck('id')->toArray();
     $gardens = Garden::all()->pluck('id')->toArray();
