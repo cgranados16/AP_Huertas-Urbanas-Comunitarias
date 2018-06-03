@@ -12,8 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call([
-        //     ReviewSeeder::class,   
+        //     // CountriesSeeder::class,
+        //     // ProvincesSeeder::class,
+        //     // CantonSeeder::class,
+        //     // DistrictSeeder::class,
+            
         // ]);
-        factory(App\Models\CollaboratorsPerGarden::class, 3)->create();
+        //factory(App\Models\User::class, 500)->create(); //crea 150 usuarios
+        //factory(App\Models\Garden::class, 150)->create(); //crea colaboradores
+        // factory(App\Models\CollaboratorsPerGarden::class, 500)->create(); //crea colaboradores
+        factory(App\Models\Review::class, 500)->create(); //crea opiniones
+
     }
 }

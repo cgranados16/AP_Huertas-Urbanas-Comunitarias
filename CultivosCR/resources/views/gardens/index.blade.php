@@ -139,7 +139,7 @@
                                 </h2>
                             </div>
                             <div class="col-lg-4 col-xl-5" style="padding-top: 4px;">
-                                <div class="js-rating-read" data-score="5" data-star-on="fa fa-fw fa-2x fa-star text-primary" data-star-off="fa fa-fw fa-2x fa-star text-muted"></div>
+                                <div class="js-rating-read" data-score="{{$garden->gardenScore()}}" data-star-on="fa fa-fw fa-2x fa-star text-primary" data-star-off="fa fa-fw fa-2x fa-star text-muted"></div>
                             </div>
                             <div class="col-l-4" style="padding-top: 8px;">
                                 <h5 class="text-muted">{{ count($garden->reviews) }} opiniones</h5>

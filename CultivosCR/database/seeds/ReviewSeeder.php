@@ -14,15 +14,15 @@ class ReviewSeeder extends Seeder
     {
         Review::create([
             'IdGarden' => 2,
-            'IdClient' => 1,
-            'Score' => 5,
+            'IdClient' => 41,
+            'Score' => 3,
             'Date' => Carbon\Carbon::now(),
             'Description' => 'Muy bueno me encantó.',
         ]);
 
         Review::create([
             'IdGarden' => 2,
-            'IdClient' => 1,
+            'IdClient' => 43,
             'Score' => 5,
             'Date' => Carbon\Carbon::now(),
             'Description' => 'Las manzanas de esta huerta son las mejores!.',
@@ -30,7 +30,7 @@ class ReviewSeeder extends Seeder
 
         Review::create([
             'IdGarden' => 2,
-            'IdClient' => 1,
+            'IdClient' => 94,
             'Score' => 1,
             'Date' => Carbon\Carbon::now(), 
             'Description' => 'La lechuga tenia bichitos:(.',
