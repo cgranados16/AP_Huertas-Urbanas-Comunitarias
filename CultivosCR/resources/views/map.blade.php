@@ -126,9 +126,9 @@
                 var marker = new google.maps.Marker({
                     position: location,
                     map: map,
-                    title: "{{$garden->Name}}",
+                    title: "{{$garden->Name}}",   
                 });
-                var contentString = '<div id="content">'+
+                var content = '<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
                 '<h3 id="firstHeading" >{{$garden->Name}}</h1>'+
@@ -137,12 +137,14 @@
                 '</div>'+
                 '</div>';
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                });
-                marker.addListener('click', function() {
-                    infowindow.open(map, marker);
-                });
+                var infowindow = new google.maps.InfoWindow();
+                google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+                    return function() {
+                        infowindow.setContent(content);
+                        infowindow.open(map,marker);
+                    };
+                })(marker,content,infowindow));  
+               
                 
             @endforeach
             
