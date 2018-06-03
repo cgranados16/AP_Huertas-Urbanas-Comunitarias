@@ -11,6 +11,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Illuminate\Support\Facades\DB;
+use Lang;
 
 class TreeController extends AppBaseController
 {
@@ -45,7 +46,7 @@ class TreeController extends AppBaseController
      */
     public function create()
     {
-        $ordersCatalog = DB::table('treesorder')->get();
+        $ordersCatalog = DB::table('treeordercatalog')->get();
 
         return view('trees.create', ['ordersCatalog' => $ordersCatalog]);
     }

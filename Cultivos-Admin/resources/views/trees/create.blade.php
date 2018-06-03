@@ -5,31 +5,11 @@
 </section>
 
 @include('adminlte-templates::common.errors')
-<form action="be_pages_ecom_product_edit.php" method="post" onsubmit="return false;">
-    <div class="block block-rounded block-themed">
-        <div class="block-header bg-gd-primary">
-            <h3 class="block-title">Información Básica</h3>
-        </div>
-        <div class="block-content">
-            <div class="form-group row">
-                <label class="col-12" for="ecom-product-meta-title">Title</label>
-                <div class="col-6">
-                    <input type="text" class="js-maxlength form-control js-maxlength-enabled" maxlength="50">
-                    <div class="form-text text-muted font-size-sm text-right">50 Caractéres máx</div>
-                </div>
-            </div>
-            <div class="form-group row">
-                {!! Form::label('InDanger', 'Familia y orden:', ['class'=>'col-12']) !!}
-                <div class="col-6">
-                    <select class="js-example-basic-single" name="state">
-                        <option value="AL">Alabama</option>
-                        <option value="WY">Wyoming</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>  
-</form>
+{!! Form::open(['route' => 'trees.store']) !!}
+
+@include('trees.fields')
+
+{!! Form::close() !!}
 
 <div class="block block-rounded block-themed">
     <div class="block-header bg-gd-primary">

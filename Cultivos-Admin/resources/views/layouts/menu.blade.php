@@ -43,7 +43,6 @@
         </a>
     </li>
 </li>
-@role('admin')
 <li class="nav-main-heading">
     <span class="sidebar-mini-hidden">{{Lang::get('sidebar.system')}}</span>
 </li>
@@ -56,5 +55,4 @@
         </a>
     </li>
 </li>
-@endrole
 

@@ -47,7 +47,7 @@ class TreeOrderCatalog extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
-    public function treeFamilyCatalog()
+    public function family()
     {
         return $this->hasOne(\App\Models\Catalogs\treeFamilyCatalog::class, 'id');
     }

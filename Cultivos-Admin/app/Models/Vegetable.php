@@ -22,7 +22,7 @@ class Vegetable extends Model
 
 
     public $fillable = [
-        'Name',
+        'Name','Color','Type'
     ];
 
     /**
