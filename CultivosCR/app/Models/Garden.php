@@ -34,7 +34,12 @@ class Garden extends Model
     public function gardenScore()
     {
         $reviews = $this->hasMany(Review::class,'IdGarden');
-        return number_format($reviews->sum('Score')/$reviews->count(), 1) ;
+        if ($reviews->count() > 0){
+            return number_format($reviews->sum('Score')/$reviews->count(), 1) ;    
+        }else{ 
+            return number_format(5, 1) ;    
+        }
+        
     }
 
     public function favorites()

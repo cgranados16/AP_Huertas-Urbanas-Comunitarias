@@ -20,6 +20,11 @@ Route::get('garden', 'GardenController@index')->name('garden');
 Route::get('garden/{id}', 'GardenController@show');
 Route::post('garden/{id}/follow', 'GardenController@follow');
 Route::post('garden/{id}/unfollow', 'GardenController@unfollow');
+
+Route::get('users/profile', 'UserController@profile');
+Route::get('users/profile/edit', 'UserController@edit');
+Route::get('users/{id}', 'UserController@show');
 Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
