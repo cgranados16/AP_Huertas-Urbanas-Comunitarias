@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -32,8 +31,9 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function roles()
+    public function gardens()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->hasMany(Garden::class,'IdManager');
     }
+
 }

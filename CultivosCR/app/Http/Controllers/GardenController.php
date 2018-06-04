@@ -116,9 +116,6 @@ class GardenController extends Controller
 
     public function unfollow($id)
     {
-        $favorite = FavoriteGardens::where('IdClient',Auth::id())->where('IdGarden',$id)->delete();
-        
-
-        
+        $favorite = FavoriteGardens::where('IdClient',Auth::id())->where('IdGarden',$id)->delete();      
     }
 }
