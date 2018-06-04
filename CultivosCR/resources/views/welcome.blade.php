@@ -28,7 +28,7 @@
                 <!-- Left Section -->
                 <div class="content-header-section">
                     <div class="content-header-item">
-                        <a class="link-effect font-w700" href="">
+                        <a class="link-effect font-w700" href="{{ url('home') }}">
                             <i class="si si-fire text-primary"></i>
                             <span class="d-none d-md-inline-block">
                                 <span class="font-size-xl text-dual-primary-dark">Cultivos</span>
@@ -46,7 +46,7 @@
                 <div class="content-header-section">
                     <ul class="nav-main-header">
                         <li>
-                            <a href="">
+                            <a href="{{ url('home') }}">
                                 <i class="fa fa-home"></i> Inicio
                             </a>
                         </li>
@@ -153,29 +153,86 @@
                                 <div class="col-md-4">
                                     <div class="block block-rounded">
                                         <div class="block-content tab-content">
-                                            <form class="js-validation-signup px-30" action="be_pages_auth_all.php" method="post" novalidate="novalidate">
+                                            <form method="POST" action="{{ route('register') }}">
+                                                @csrf
                                                 <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <div class="form-material floating">
-                                                            <input type="email" class="form-control" id="signup-email" name="signup-email">
-                                                            <label for="signup-email">Correo Electrónico</label>
+                                                    <div class=" col-md-6">
+                                                        <div class=" form-material floating ">
+                                                            <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name"
+                                                                value="{{ old('first_name') }}" required autofocus>
+                                                            <label for="first_name">Nombre</label>
+                                                            @if ($errors->has('first_name'))
+                                                            <div class="invalid-feedback animated fadeInDown">
+                                                                <strong>{{ $errors->first('first_name') }}</strong>
+                                                            </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-md-6">
+                                                        <div class=" form-material floating">
+                                                            <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name"
+                                                                value="{{ old('last_name') }}" required autofocus>
+                                                            <label for="last_name">Apellidos</label>
+                                                            @if ($errors->has('last_name'))
+                                                            <div class="invalid-feedback animated fadeInDown">
+                                                                <strong>{{ $errors->first('last_name') }}</strong>
+                                                            </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
+                                                    <label class="col-12">Género</label>
                                                     <div class="col-12">
-                                                        <div class="form-material floating">
-                                                            <input type="password" class="form-control" id="signup-password" name="signup-password">
-                                                            <label for="signup-password">Contraseña</label>
-                                                        </div>
+                                                        <label class="css-control css-control-primary css-radio">
+                                                            <input type="radio" class="css-control-input" name="gender" value="M" required>
+                                                            <span class="css-control-indicator"></span> Masculino
+                                                        </label>
+                                                        <label class="css-control css-control-primary css-radio mr-10">
+                                                            <input type="radio" class="css-control-input" name="gender" value="F" required>
+                                                            <span class="css-control-indicator"></span> Femenino
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-12">
-                                                        <div class="form-material floating">
-                                                            <input type="password" class="form-control" id="signup-password-confirm" name="signup-password-confirm">
-                                                            <label for="signup-password-confirm">Confirmar Contraseña</label>
-                                                        </div>
+                                                    <label for="first_name" class="col-md-4 col-form-label text-md-right">Fecha de Nacimiento</label>
+                                                    <div class="col-6">
+                                                        <input type="text" class="js-datepicker form-control js-datepicker-enabled" id="birth_date" name="birth_date" data-week-start="1"
+                                                            data-autoclose="true" data-today-highlight="true" data-date-format="mm/dd/yy"
+                                                            placeholder="mm/dd/yy">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="email" class="col-md-4 col-form-label text-md-right">Correo Electrónico</label>
+            
+                                                    <div class="col-md-6">
+                                                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"
+                                                            required> @if ($errors->has('email'))
+                                                        <span class="invalid-feedback">
+                                                            <strong>{{ $errors->first('email') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+            
+                                                <div class="form-group row">
+                                                    <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña</label>
+            
+                                                    <div class="col-md-6">
+                                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"
+                                                            required> @if ($errors->has('password'))
+                                                        <span class="invalid-feedback">
+                                                            <strong>{{ $errors->first('password') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+            
+                                                <div class="form-group row">
+                                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmar Contraseña</label>
+            
+                                                    <div class="col-md-6">
+                                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -194,7 +251,7 @@
                                                         <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="#" data-toggle="modal" data-target="#modal-terms">
                                                             <i class="fa fa-book text-muted mr-5"></i> Leer Términos
                                                         </a>
-                                                        <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="op_auth_signin2.php">
+                                                        <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="{{ url('/login') }}">
                                                             <i class="fa fa-user text-muted mr-5"></i> Iniciar Sesión
                                                         </a>
                                                     </div>
@@ -215,6 +272,16 @@
 
     <!-- Codebase Core JS -->
     <script src="{{ asset('js/codebase.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+    <script>
+        jQuery(function () {
+            $('.js-datepicker').datepicker();
+            Codebase.helpers(['datepicker']);
+        });
+    </script>
+    <script src="{{ asset('js/pages/be_forms_validation.js') }}"></script> 
 </body>
 
 </html>

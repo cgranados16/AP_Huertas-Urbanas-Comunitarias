@@ -25,7 +25,7 @@
                 <!-- Left Section -->
                 <div class="content-header-section">
                     <div class="content-header-item">
-                        <a class="link-effect font-w700" href="">
+                        <a class="link-effect font-w700" href="{{ url('home') }}">
                             <i class="si si-fire text-primary"></i>
                             <span class="d-none d-md-inline-block">
                                 <span class="font-size-xl text-dual-primary-dark">Cultivos</span>
@@ -33,9 +33,6 @@
                             </span>
                         </a>
                     </div>
-                    <button type="button" class="btn btn-rounded btn-dual-secondary" data-toggle="layout" data-action="header_search_on">
-                        <i class="fa fa-search mr-5"></i> Buscar
-                    </button>
                 </div>
                 <!-- END Left Section -->
 
@@ -43,7 +40,7 @@
                 <div class="content-header-section">
                     <ul class="nav-main-header">
                         <li>
-                            <a href="">
+                            <a href="{{ url('home') }}">
                                 <i class="fa fa-home"></i> Inicio
                             </a>
                         </li>
@@ -106,25 +103,7 @@
                 </div>
                 <!-- END Right Section -->
             </div>
-            <div id="page-header-search" class="overlay-header">
-                <div class="content-header content-header-fullrow">
-                    <form>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button type="button" class="btn btn-secondary px-15" data-toggle="layout" data-action="header_search_off">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Buscar productos o huertas.." id="page-header-search-input" name="page-header-search-input">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary px-15">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            
             <!-- END Header Content -->
             <div id="page-header-loader" class="overlay-header bg-primary">
                 <div class="content-header content-header-fullrow text-center">

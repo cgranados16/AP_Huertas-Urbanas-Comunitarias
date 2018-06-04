@@ -29,5 +29,4 @@ Route::get('users/profile/edit', 'UserController@edit');
 Route::get('users/{id}', 'UserController@show');
 Auth::routes();
 
-
 Route::get('/home', 'HomeController@index')->name('home');
