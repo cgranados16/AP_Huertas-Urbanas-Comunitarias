@@ -67,7 +67,10 @@ class GardenController extends Controller
         return view('gardens/product_list', ['garden' => Garden::findOrFail($id)]);
     }
 
-
+    public function estadistica($id)
+    {
+        return view('gardens/estadistica', ['garden' => Garden::findOrFail($id)]);
+    }
 
     /**
      * Show the form for editing the specified resource.
