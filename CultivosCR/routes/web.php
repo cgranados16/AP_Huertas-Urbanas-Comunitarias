@@ -23,7 +23,7 @@ Route::get('garden/{id}/photos', 'GardenController@photos');
 Route::get('garden/{id}/products', 'GardenController@products');
 Route::post('garden/{id}/follow', 'GardenController@follow');
 Route::post('garden/{id}/unfollow', 'GardenController@unfollow');
-
+Route::get('garden/{id}/estadistica', 'GardenController@estadistica');
 Route::get('users/profile', 'UserController@profile');
 Route::get('users/profile/edit', 'UserController@edit');
 Route::get('users/{id}', 'UserController@show');
