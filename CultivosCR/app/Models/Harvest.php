@@ -22,5 +22,10 @@ class Harvest extends Model
             return $this->belongsTo(Vegetable::class, 'Harvest');
         }
     }
+
+    public function harvest_type()
+    {
+        return $this->belongsTo(HarvestType::class, 'HarvestType');
+    }
     
 }

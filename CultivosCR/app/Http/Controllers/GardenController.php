@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Garden;
+use App\Models\Tree;
+use App\Models\Vegetable;
 use App\Models\FavoriteGardens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use DB;
+use Illuminate\Support\Facades\Input;
+
 
 
 class GardenController extends Controller
@@ -26,7 +32,8 @@ class GardenController extends Controller
      */
     public function create()
     {
-        //
+        $districts = DB::table('district')->get();
+        return view('gardens/create', ['districts' => $districts]);
     }
 
     /**
@@ -37,7 +44,16 @@ class GardenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $garden = new Garden;
+        $garden->Name = Input::get('Name');
+        $garden->IdManager = Auth::id();
+        $garden->District = Input::get('District');
+        $garden->Directions = Input::get('Directions');
+        $garden->Latitude = Input::get('Latitude');
+        $garden->Longitude = Input::get('Longitude');
+        $garden->GardenPicture = 'photos/gardens/1/garden.jpg';
+        $garden->save();
+        return redirect(route('home'));
     }
 
 /**
@@ -51,6 +67,28 @@ class GardenController extends Controller
     {
         return view('gardens/index', ['garden' => Garden::findOrFail($id)]);
     }
+
+    public function showAdmin($id)
+    {
+         $garden = Garden::findOrFail($id);
+         if (Auth::user()->can('view', $garden)) {
+            return view('gardens/admin/dashboard', ['garden' => $garden]);
+        }
+
+        return redirect('home');   
+    }
+
+    public function productsAdmin($id)
+    {
+         $garden = Garden::findOrFail($id);
+         if (Auth::user()->can('view', $garden)) {
+            return view('gardens/admin/products', ['garden' => $garden]);
+        }
+
+        return redirect('home');   
+    }
+
+    
 
     public function reviews($id)
     {
