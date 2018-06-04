@@ -54,22 +54,22 @@
                         <div class="font-size-xl font-w600 mb-5">{{ $garden->Name }}</div>
                         <ul class="nav-main p-10">
                             <li>
-                                <a href="u-garden-home.html">
+                                <a href="{{url('garden/'.$garden->id)}}">
                                     <span class="sidebar-mini-hide">Inicio</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="u-garden-products.html">
+                                <a href="{{url('garden/'.$garden->id.'/products')}}">
                                     <span class="sidebar-mini-hide">Productos</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="u-garden-photos.html">
+                                <a href="{{url('garden/'.$garden->id.'/photos')}}">
                                     <span class="sidebar-mini-hide">Fotos</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="u-garden-reviews.html">
+                                <a href="{{url('garden/'.$garden->id.'/reviews')}}">
                                     <span class="sidebar-mini-hide">Opiniones</span>
                                 </a>
                             </li>

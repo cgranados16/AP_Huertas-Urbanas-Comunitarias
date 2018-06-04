@@ -1,5 +1,13 @@
 @extends('layouts.app')
+@section('styles')
+<!-- Page JS Plugins CSS -->
 
+<link rel="stylesheet" href="{{ asset('js/plugins/slick/slick.min.css') }}">
+<link rel="stylesheet" href="{{ asset('js/plugins/slick/slick-theme.min.css') }}">
+<link rel="stylesheet" href="{{ asset('js/plugins/sweetalert2/sweetalert2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/cultivoscr.css') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('content')
 <div class="bg-image bg-image-bottom" style="background-image: url('{{ asset('img/photos/photo13@2x.jpg') }}');">
     <div class="bg-primary-dark-op py-30">
@@ -28,7 +36,7 @@
                     <i class="fa fa-times mr-5"></i> Eliminar de Favoritos
                 </button>
             @endif
-
+            
             @endif
             <!-- END Actions -->
         </div>
@@ -69,45 +77,22 @@
                     </div>
                 </div>
             </div>
-					<div class="block">
-                        <div class="block-header block-header-default">
-                            <h3 class="block-title">Lista de Productos</h3>
-                            <div class="block-options">
-                            </div>
-                        </div>
-                        <div class="block-content">
-                            <table class="table table-vcenter">
-                                <thead class="thead-default">
-                                    <tr>
-                                        <th class="text-center" style="width: 15%;">Categorizacion</th>
-                                        <th class="text-center" style="width: 15%;">Cultivo</th>
-                                        <th class="text-center" style="width: 15%;">En stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  @foreach ($garden->harvests as $harvest)
-                                    <tr>
-                                      @if($harvest->HarvestType == 1)
-                                        <td class="text-center">Arbol</td>
-                                      @else
-                                        <td class="text-center">Vegetal</td>
-                                      @endif
-                                      <td class="text-center" scope="row">{{$harvest->harvest->Name}}</td>
-                                      @if($harvest->InStock == 1)
-                                        <td class="text-center">Disponible</td>
-                                      @else
-                                        <td class="text-center">No disponible</td>
-                                      @endif
+            <!-- END Garden Navigation Bar -->
 
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- END Simple Table-->
-                </div>
 
-            </div>
-            <!-- END Page Content -->
+
+@endsection
+@section('scripts')
+    <script>
+        var latitude = {{ $garden->Latitude }};
+        var longitude = {{ $garden->Longitude }}; 
+        var host = '{{ url("garden/$garden->id") }}';
+    </script>
+    
+    <script src="{{ asset('js/cultivoscr/garden-profile.js') }}"></script>
+    <script src="{{ asset('js/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-raty/jquery.raty.min.js') }}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-59jWkkJJxeKQdF1KNUqgg7MrSWRqHt4&callback=initMap"></script>
+        
 @endsection

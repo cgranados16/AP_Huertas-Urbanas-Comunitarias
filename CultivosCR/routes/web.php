@@ -18,6 +18,9 @@ Route::get('/', function () {
 Route::get('/map', 'MapController@index')->name('map');
 Route::get('garden', 'GardenController@index')->name('garden');
 Route::get('garden/{id}', 'GardenController@show');
+Route::get('garden/{id}/reviews', 'GardenController@reviews');
+Route::get('garden/{id}/photos', 'GardenController@photos');
+Route::get('garden/{id}/products', 'GardenController@products');
 Route::post('garden/{id}/follow', 'GardenController@follow');
 Route::post('garden/{id}/unfollow', 'GardenController@unfollow');
 

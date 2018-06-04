@@ -52,6 +52,23 @@ class GardenController extends Controller
         return view('gardens/index', ['garden' => Garden::findOrFail($id)]);
     }
 
+    public function reviews($id)
+    {
+        return view('gardens/reviews', ['garden' => Garden::findOrFail($id)]);
+    }
+
+    public function photos($id)
+    {
+        return view('gardens/photos', ['garden' => Garden::findOrFail($id)]);
+    }
+
+    public function products($id)
+    {
+        return view('gardens/product_list', ['garden' => Garden::findOrFail($id)]);
+    }
+
+
+
     /**
      * Show the form for editing the specified resource.
      *
