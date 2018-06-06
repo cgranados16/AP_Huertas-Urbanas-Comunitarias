@@ -21,7 +21,10 @@ class Garden extends Model
         return $this->hasMany(Sale::class, 'IdGarden', 'id');
     }
 
-
+    public function trades()
+    {
+        return $this->hasMany(Trade::class, 'IdGarden', 'id');
+    }
 
     public function harvests()
     {

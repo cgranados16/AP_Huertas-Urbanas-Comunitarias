@@ -26,6 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/garden/{id}/Sales', 'GardenController@sales');
 Route::get('admin/garden/{id}/Trades', 'GardenController@trades');
 Route::get('admin/garden/{id}/Sale/create', 'GardenController@createSale')->name('sales/create');
+Route::get('admin/garden/{id}/Trade/create', 'GardenController@createTrade')->name('trades/create');
 
 Route::get('admin/garden/{id}', 'GardenController@showAdmin');
 Route::get('admin/garden/{id}/products', 'GardenController@productsAdmin');

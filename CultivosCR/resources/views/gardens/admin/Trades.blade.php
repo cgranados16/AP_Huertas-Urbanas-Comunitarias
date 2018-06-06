@@ -7,13 +7,13 @@
     <div class="content">
         <div class="row">
             <div class="col-12">
-                <a class="block block-rounded text-center" href="{{route('harvest.create',$garden->id)}}">
+                <a class="block block-rounded text-center" href="{{route('trades/create',$garden->id)}}">
                     <div class="block-content">
                         <p class="mt-5 mb-10">
                             <i class="fa fa-plus-square-o text-gray fa-2x d-xl-none"></i>
                             <i class="fa fa-plus-square-o text-gray fa-3x d-none d-xl-inline-block"></i>
                         </p>
-                        <p class="font-w600 font-size-sm text-uppercase">Añadir Producto</p>
+                        <p class="font-w600 font-size-sm text-uppercase">Crear Intercambio</p>
                     </div>
                 </a>
             </div>
@@ -30,22 +30,20 @@
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                         <tr>
-                            <th style="width: 15%;">Cliente</th>
-                            <th style="width: 15%;">CultivoVendido</th>
-                            <th style="width: 15%;">Cantidad</th>
-                            <th style="width: 15%;">PrecioTotal</th>
+                            <th style="width: 20%;">Id</th>
+                            <th style="width: 20%;">Cliente</th>
+                            <th style="width: 20%;">FechaCreado</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($garden->Sale as $sale)
+                        @foreach ($garden->trades as $trade)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$trade->id}}</td>
+                                <td>{{$trade->client->getFullNameAttribute()}}</td>
+                                <td>{{$trade->created_at}}</td>
                                 <td>
                                     <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
-                                        <a href="{!! route('harvest.edit', [$garden->id,$harvest->id]) !!}"><i class="fa fa-pencil"></i></a>
+
                                     </button>
                                 </td>
 
@@ -53,37 +51,35 @@
                         @endforeach
                     </tbody>
                 </table>
-
-                <div class="block-content block-content-full">
-                        <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/be_tables_datatables.js -->
-                        <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
-                            <thead>
-                                <tr>
-                                    <th style="width: 15%;">Cliente</th>
-                                    <th style="width: 15%;">CultivoVendido</th>
-                                    <th style="width: 15%;">Cantidad</th>
-                                    <th style="width: 15%;">PrecioTotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($garden->Sale as $sale)
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
-                                                <a href="{!! route('harvest.edit', [$garden->id,$harvest->id]) !!}"><i class="fa fa-pencil"></i></a>
-                                            </button>
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-            </div>
-        </div>
+              </div>
+              </div>
+              <div class="content">
+                  <div class="content-heading">
+                          Productos Intercambiados
+                          </div>
+                        <div class="block block-rounded">
+                        <div class="block-content block-content-full">
+                <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">IdIntercambio</th>
+                            <th style="width: 20%;">Cultivo</th>
+                            <th style="width: 20%;">Cantidad</th>
+                            <th style="width: 20%;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($garden->trades as $htrade)
+                            <tr>
+                                <td>{{$htrade->HarvestByTrade}}</td>
+                                <td>{{$trade->idHarvest}}</td>
+                                <td>{{$trade->Quantity}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+          </div>
+      </div>
 </div>
 @endsection
 @section('scripts')

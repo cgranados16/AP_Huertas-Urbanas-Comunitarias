@@ -88,8 +88,6 @@ class GardenController extends Controller
         return redirect('home');
     }
 
-
-
     public function reviews($id)
     {
         return view('gardens/reviews', ['garden' => Garden::findOrFail($id)]);
@@ -123,6 +121,11 @@ class GardenController extends Controller
     public function trades($id)
     {
         return view('gardens/admin/Trades', ['garden' => Garden::findOrFail($id)]);
+    }
+
+    public function createTrade($id)
+    {
+        return view('gardens/admin/Trade/create', ['garden' => Garden::findOrFail($id)]);
     }
     /**
      * Show the form for editing the specified resource.

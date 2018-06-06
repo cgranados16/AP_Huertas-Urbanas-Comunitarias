@@ -53,6 +53,32 @@
                         @endforeach
                     </tbody>
                 </table>
+              </div>
+              </div>
+              <div class="content">
+                  <div class="content-heading">
+                          Productos Vendidos
+                          </div>
+                        <div class="block block-rounded">
+                        <div class="block-content block-content-full">
+                <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">IdVenta</th>
+                            <th style="width: 20%;">Cultivo</th>
+                            <th style="width: 20%;">Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($garden->sales as $sale)
+                            <tr>
+                              <td>{{$sale->id}}</td>
+                              <td>{{$sale->client->getFullNameAttribute()}}</td>
+                              <td>{{$sale->TotalPrice}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
 </div>
