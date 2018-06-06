@@ -1,12 +1,10 @@
 <?php
-
 use Faker\Generator as Faker;
 use App\Models\Catalogs\TreeOrderCatalog;
 use App\Models\Catalogs\ColorCatalog;
 use App\Models\Catalogs\VegetableTypeCatalog;
 use App\Models\Garden;
 use App\Models\Vegetable;
-use App\Models\PhotosPerVegetable;
 
 $factory->define(App\Models\Tree::class, function (Faker $faker) {
     $gardens = TreeOrderCatalog::all()->pluck('id')->toArray();
@@ -33,7 +31,7 @@ $factory->define(App\Models\Harvest::class, function (Faker $faker) {
     $harvest = Vegetable::all()->pluck('id')->toArray();
     $harvest_type = DB::table('harvest_type')->get()->pluck('id')->toArray();
     $fertilizer = DB::table('fertilizercatalog')->get()->pluck('id')->toArray();
-    
+
     return [
         'Garden' => $faker->randomElement($gardens),
         'Harvest' => $faker->randomElement($harvest),
@@ -41,5 +39,6 @@ $factory->define(App\Models\Harvest::class, function (Faker $faker) {
         'FertilizerRequirements' => $faker->randomElement($fertilizer),
         'Price' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL) ,
         'InStock' => $faker->boolean,
+
     ];
 });

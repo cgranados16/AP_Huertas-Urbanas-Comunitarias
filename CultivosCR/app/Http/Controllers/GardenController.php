@@ -75,7 +75,7 @@ class GardenController extends Controller
             return view('gardens/admin/dashboard', ['garden' => $garden]);
         }
 
-        return redirect('home');   
+        return redirect('home');
     }
 
     public function productsAdmin($id)
@@ -85,10 +85,10 @@ class GardenController extends Controller
             return view('gardens/admin/products', ['garden' => $garden]);
         }
 
-        return redirect('home');   
+        return redirect('home');
     }
 
-    
+
 
     public function reviews($id)
     {
@@ -110,6 +110,15 @@ class GardenController extends Controller
         return view('gardens/estadistica', ['garden' => Garden::findOrFail($id)]);
     }
 
+    public function sales($id)
+    {
+        return view('gardens/admin/Sales', ['garden' => Garden::findOrFail($id)]);
+    }
+
+    public function trades($id)
+    {
+        return view('gardens/admin/Trades', ['garden' => Garden::findOrFail($id)]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -154,6 +163,6 @@ class GardenController extends Controller
 
     public function unfollow($id)
     {
-        $favorite = FavoriteGardens::where('IdClient',Auth::id())->where('IdGarden',$id)->delete();      
+        $favorite = FavoriteGardens::where('IdClient',Auth::id())->where('IdGarden',$id)->delete();
     }
 }

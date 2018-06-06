@@ -23,6 +23,8 @@ Route::get('users/{id}', 'UserController@show');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('garden/{id}/Sales', 'GardenController@sales');
+Route::get('garden/{id}/Trades', 'GardenController@trades');
 
 
 Route::get('admin/garden/{id}', 'GardenController@showAdmin');
