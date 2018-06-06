@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-    public $table = 'Sale';
+    public $table = 'sale';
+
+    public function garden()
+    {
+        return $this->belongsTo(Garden::class,'IdGarden');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(User::class,'IdClient');
+    }
+
 }

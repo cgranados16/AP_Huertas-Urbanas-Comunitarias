@@ -7,13 +7,13 @@
     <div class="content">
         <div class="row">
             <div class="col-12">
-                <a class="block block-rounded text-center" href="{{route('harvest.create',$garden->id)}}">
+                <a class="block block-rounded text-center" href="{{route('sales/create',$garden->id)}}">
                     <div class="block-content">
                         <p class="mt-5 mb-10">
                             <i class="fa fa-plus-square-o text-gray fa-2x d-xl-none"></i>
                             <i class="fa fa-plus-square-o text-gray fa-3x d-none d-xl-inline-block"></i>
                         </p>
-                        <p class="font-w600 font-size-sm text-uppercase">Añadir Producto</p>
+                        <p class="font-w600 font-size-sm text-uppercase">Crear venta</p>
                     </div>
                 </a>
             </div>
@@ -30,33 +30,22 @@
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                         <tr>
-                            <th>Cultivo</th>
-                            <th>Cultivo</th>
-                            <th style="width: 15%;">Estado</th>
-                            <th style="width: 15%;">Precio</th>
-                            <th style="width: 5%;">Acción</th>
+                            <th style="width: 20%;">IdVenta</th>
+                            <th style="width: 20%;">Cliente</th>
+                            <th style="width: 20%;">PrecioTotal</th>
+                            <th style="width: 20%;">FechaCreado</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($garden->harvests as $harvest)
+                        @foreach ($garden->sales as $sale)
                             <tr>
-                                <td>{{$harvest->harvest->Name}}</td>
-                                @if($harvest->HarvestType == 1)
-                                    <td>Árbol</td>
-                                @else
-                                    <td>Hortaliza</td>
-                                @endif
-                                <td class="d-none d-sm-table-cell">
-                                    @if($harvest->InStock)
-                                        <span class="badge badge-success">Disponible</span>
-                                    @else
-                                        <span class="badge badge-danger">Agotado</span>
-                                    @endif
-                                </td>
-                                <td>₡{{$harvest->Price}}</td>
+                                <td>{{$sale->id}}</td>
+                                <td>{{$sale->client->getFullNameAttribute()}}</td>
+                                <td>{{$sale->TotalPrice}}</td>
+                                <td>{{$sale->created_at}}</td>
                                 <td>
                                     <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
-                                        <a href="{!! route('harvest.edit', [$garden->id,$harvest->id]) !!}"><i class="fa fa-pencil"></i></a>
+
                                     </button>
                                 </td>
 

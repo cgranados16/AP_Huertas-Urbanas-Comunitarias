@@ -16,6 +16,13 @@ class Garden extends Model
         return $this->belongsToMany(User::class, 'collaborators_per_garden', 'IdGarden', 'IdCollaborator');
     }
 
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'IdGarden', 'id');
+    }
+
+
+
     public function harvests()
     {
         return $this->hasMany(Harvest::class,'Garden');
@@ -35,11 +42,11 @@ class Garden extends Model
     {
         $reviews = $this->hasMany(Review::class,'IdGarden');
         if ($reviews->count() > 0){
-            return number_format($reviews->sum('Score')/$reviews->count(), 1) ;    
-        }else{ 
-            return number_format(5, 1) ;    
+            return number_format($reviews->sum('Score')/$reviews->count(), 1) ;
+        }else{
+            return number_format(5, 1) ;
         }
-        
+
     }
 
     public function favorites()

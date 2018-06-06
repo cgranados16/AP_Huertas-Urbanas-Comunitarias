@@ -115,6 +115,11 @@ class GardenController extends Controller
         return view('gardens/admin/Sales', ['garden' => Garden::findOrFail($id)]);
     }
 
+    public function createSale($id)
+    {
+        return view('gardens/admin/Sale/create', ['garden' => Garden::findOrFail($id)]);
+    }
+
     public function trades($id)
     {
         return view('gardens/admin/Trades', ['garden' => Garden::findOrFail($id)]);
