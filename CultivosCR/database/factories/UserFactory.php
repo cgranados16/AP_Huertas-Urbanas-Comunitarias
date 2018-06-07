@@ -26,3 +26,11 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(App\Models\favoriteGardens::class, function (Faker $faker) {
+    $users = User::all()->pluck('id')->toArray();
+    $gardens = Garden::all()->pluck('id')->toArray();
+    return [
+      'IdClient' => $faker->randomElement($users),
+      'IdGarden' => $faker->randomElement($gardens),
+    ];
+});
