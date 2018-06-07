@@ -89,8 +89,27 @@ class HarvestController extends Controller
 
     public function update(Request $request)
     {
-        
-        return redirect('home');
+        $garden = Garden::findOrFail($harvest);
+        if (Input::get('Harvest') instanceof Vegetable){
+            $garden->HarvestType = 2;
+        }else{
+            $garden->HarvestType = 1;
+        }
+        $garden->Harvest = Input::get('Harvest');
+        $garden->FertilizerRequirements = Input::get('Fertilizer');
+        $garden->Price = Input::get('Price');
+        $garden->InStock = Input::get('InStock') === 'on' ? 1 : 0;
+       
+        $garden->save();
+        return redirect('admin/garden/'.$id.'/products');
     }
+
+    public function destroy($id, Harvest $harvest)
+    {
+        $harvest->delete();
+        return redirect('admin/garden/'.$id.'/products');
+    }
+    
+    
 
 }

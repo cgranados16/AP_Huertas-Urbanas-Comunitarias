@@ -55,9 +55,16 @@
                                 </td>
                                 <td>₡{{$harvest->Price}}</td>
                                 <td>
-                                    <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
-                                        <a href="{!! route('harvest.edit', [$garden->id,$harvest->id]) !!}"><i class="fa fa-pencil"></i></a>
-                                    </button>
+                                        {!! Form::open(['route' => ['harvest.destroy', $garden->id,$harvest], 'method' => 'delete']) !!}
+                                        <div class='btn-group'>
+                                                
+                                                    <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
+                                                        <a href="{!! route('harvest.edit', [$garden->id,$harvest]) !!}"><i class="fa fa-pencil"></i></a>
+                                                    </button>
+                                            {!! Form::button('<i class="fa fa-times"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-secondary primary-color text-primary',
+                                                'onclick' => "return confirm('Are you sure?')",'data-toggle'=>"tooltip",  'data-original-title'=>'Eliminar' ]) !!}
+                                        </div>
+                                        {!! Form::close() !!}
                                 </td>
                                 
                             </tr>
