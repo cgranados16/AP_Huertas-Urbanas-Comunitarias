@@ -71,6 +71,18 @@
                                     <span class="sidebar-mini-hide">Productos</span>
                                 </a>
                             </li>
+                            <li>
+                                <a class="active" href="{{url('admin/garden/'.$garden->id.'/Sales')}}">
+                                    <i class="si si-docs"></i>
+                                    <span class="sidebar-mini-hide">Ventas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="active" href="{{url('admin/garden/'.$garden->id.'/Trades')}}">
+                                    <i class="si si-docs"></i>
+                                    <span class="sidebar-mini-hide">Trueques</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

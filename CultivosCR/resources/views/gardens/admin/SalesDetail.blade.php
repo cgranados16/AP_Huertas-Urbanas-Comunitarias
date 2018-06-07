@@ -21,42 +21,39 @@
     </div>
 </div>
 <div class="content">
-    <div class="content-heading">
-            Ventas
-        </div>
-    <div class="block block-rounded">
-    <div class="block-content block-content-full">
-        <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/be_tables_datatables.js -->
-        <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
-            <thead>
-                <tr>
-                    <th style="width: 20%;">IdVenta</th>
-                    <th style="width: 20%;">Cliente</th>
-                    <th style="width: 20%;">PrecioTotal</th>
-                    <th style="width: 20%;">FechaCreado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($garden->sales as $sale)
-                    <tr>
-                        <td><a href="{{url('admin/garden/'.$garden->id.'/Sales/'.$sale->id)}}">
-                            {{$sale->id}}
-                        </a></td>
-                        <td>{{$sale->client->getFullNameAttribute()}}</td>
-                        <td>{{$sale->TotalPrice}}</td>
-                        <td>{{$sale->created_at}}</td>
-                        <td>
-                            <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
+        <div class="content-heading">
+                Ventas
+            </div>
+        <div class="block block-rounded">
 
-                            </button>
-                        </td>
-
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+              <div class="content">
+                  <div class="content-heading">
+                          Productos Vendidos
+                          </div>
+                        <div class="block block-rounded">
+                        <div class="block-content block-content-full">
+                <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Cultivo</th>
+                            <th style="width: 20%;">Cantidad</th>
+                            <th style="width: 20%;">Precio Individual</th>
+                            <th style="width: 20%;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sale->items as $item)
+                            <tr>
+                              <td>{{$item->harvest->harvest->Name}}</td>
+                              <td>{{$item->Quantity}}</td>
+                              <td>{{$item->harvest->Price}}</td>
+                              <td>{{$item->subtotal()}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 </div>
 @endsection
 @section('scripts')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Garden;
 use App\Models\Tree;
 use App\Models\Vegetable;
+use App\Models\Sale;
 use App\Models\FavoriteGardens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -112,6 +113,11 @@ class GardenController extends Controller
     {
         return view('gardens/admin/Sales', ['garden' => Garden::findOrFail($id)]);
     }
+    public function saledetail($id,$idSale)
+    {
+        return view('gardens/admin/SalesDetail', ['garden' => Garden::findOrFail($id), 'sale' => Sale::findOrFail($idSale)]);
+    }
+    
 
     public function createSale($id)
     {

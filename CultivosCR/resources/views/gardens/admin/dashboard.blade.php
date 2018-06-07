@@ -4,13 +4,24 @@
                 <div class="content">
                     <div class="row">
                         <div class="col-4">
-                            <a class="block block-rounded text-center" href="javascript:void(0)">
+                            <a class="block block-rounded text-center" href="{{route('sales/create',[$garden->id])}}">
                                 <div class="block-content">
                                     <p class="mt-5 mb-10">
                                         <i class="fa fa-plus-square-o text-gray fa-2x d-xl-none"></i>
                                         <i class="fa fa-plus-square-o text-gray fa-3x d-none d-xl-inline-block"></i>
                                     </p>
                                     <p class="font-w600 font-size-sm text-uppercase">Añadir Venta</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            <a class="block block-rounded text-center" href="{{route('sales/create',[$garden->id])}}">
+                                <div class="block-content">
+                                    <p class="mt-5 mb-10">
+                                        <i class="fa fa-plus-square-o text-gray fa-2x d-xl-none"></i>
+                                        <i class="fa fa-plus-square-o text-gray fa-3x d-none d-xl-inline-block"></i>
+                                    </p>
+                                    <p class="font-w600 font-size-sm text-uppercase">Añadir Trueque</p>
                                 </div>
                             </a>
                         </div>

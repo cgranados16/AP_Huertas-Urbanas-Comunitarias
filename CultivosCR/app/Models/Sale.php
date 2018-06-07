@@ -19,4 +19,10 @@ class Sale extends Model
         return $this->belongsTo(User::class,'IdClient');
     }
 
+    public function items()
+    {
+        return $this->hasMany(HarvestBySale::class,'IdSale');
+    }
+
+
 }
