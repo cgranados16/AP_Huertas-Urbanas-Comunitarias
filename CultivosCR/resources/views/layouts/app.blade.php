@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicons/apple-touch-icon-180x180.png') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" id="css-main" href="{{ asset('css/codebase.min.css') }}">
-    <link rel="stylesheet" id="css-theme" href="{{ asset('css/themes/flat.min.css') }}"> 
+    <link rel="stylesheet" id="css-theme" href="{{ asset('css/themes/flat.min.css') }}">
     @yield('styles')
 </head>
 
@@ -49,11 +49,6 @@
                                 <i class="si si-rocket"></i> Explorar
                             </a>
                         </li>
-                        <li>
-                            <a href="u-catalog-home.html">
-                                <i class="fa fa-shopping-basket"></i> Productos
-                            </a>
-                        </li>
                         @auth @else
                         <li>
                             <a href="{{route('login')}}">
@@ -72,20 +67,8 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-150" aria-labelledby="page-header-user-dropdown">
                             <a class="dropdown-item" href="start_backend.html">
-                                <i class="si si-user mr-5"></i> Mi perfil
-                            </a>
-                            <a class="dropdown-item" href="start_backend.html">
                                 <i class="fa fa-star mr-5"></i> Mis favoritos
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <!-- Toggle Side Overlay -->
-                            <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
-                            <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_toggle">
-                                <i class="si si-wrench mr-5"></i> Ajustes
-                            </a>
-                            <!-- END Side Overlay -->
-
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item">
                                 <a href="{!! url('/logout') !!}" class="dropdown-item"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -97,13 +80,13 @@
                             </a>
                         </div>
                     </div>
-                   
+
                     @endif
                     <!-- END User Dropdown -->
                 </div>
                 <!-- END Right Section -->
             </div>
-            
+
             <!-- END Header Content -->
             <div id="page-header-loader" class="overlay-header bg-primary">
                 <div class="content-header content-header-fullrow text-center">
@@ -115,12 +98,12 @@
         </header>
         <!-- END Header -->
         <!-- Main Container -->
-        <main id="main-container">  
+        <main id="main-container">
             @yield('content')
         </main>
     </div>
 
-    
+
     <script src="{{ asset('js/core/jquery.min.js') }}"></script>
     <script src="{{ asset('js/core/popper.min.js') }}"></script> {{--
     <script src="{{ asset('js/core/bootstrap.min.js') }}"></script> --}}
