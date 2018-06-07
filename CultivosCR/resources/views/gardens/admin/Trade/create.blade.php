@@ -11,7 +11,7 @@
     <div class="bg-primary-dark-op py-30">
         <div class="content content-full text-center">
             <!-- Personal -->
-            <h1 class="h3 text-white font-w700 mb-30">Agregar un cultivo</h1>
+            <h1 class="h3 text-white font-w700 mb-30">Crear Intercambio</h1>
 
 
         </div>

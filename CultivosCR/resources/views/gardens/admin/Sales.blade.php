@@ -45,12 +45,6 @@
                         <td>{{$sale->client->getFullNameAttribute()}}</td>
                         <td>{{$sale->TotalPrice}}</td>
                         <td>{{$sale->created_at}}</td>
-                        <td>
-                            <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
-
-                            </button>
-                        </td>
-
                     </tr>
                 @endforeach
             </tbody>

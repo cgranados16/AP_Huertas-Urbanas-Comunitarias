@@ -20,6 +20,7 @@ Route::get('/map', 'MapController@index')->name('map');
 Route::get('users/profile', 'UserController@profile');
 Route::get('users/profile/edit', 'UserController@edit');
 Route::get('users/{id}', 'UserController@show');
+Route::get('users/{id}/favoriteGardens', 'UserController@favoriteGardens');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

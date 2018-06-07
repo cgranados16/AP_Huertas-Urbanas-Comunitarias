@@ -72,10 +72,7 @@
                             <i class="fa fa-angle-down ml-5"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-150" aria-labelledby="page-header-user-dropdown">
-                            <a class="dropdown-item" href="start_backend.html">
-                                <i class="si si-user mr-5"></i> Mi perfil
-                            </a>
-                            <a class="dropdown-item" href="start_backend.html">
+                            <a class="dropdown-item" href="favoriteGardens.php">
                                 <i class="fa fa-star mr-5"></i> Mis favoritos
                             </a>
                             <div class="dropdown-divider"></div>

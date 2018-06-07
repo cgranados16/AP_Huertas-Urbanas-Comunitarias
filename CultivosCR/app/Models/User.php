@@ -36,4 +36,9 @@ class User extends Authenticatable
         return $this->hasMany(Garden::class,'IdManager');
     }
 
+    public function favoriteGardens()
+    {
+        return $this->hasMany(FavoriteGardens::class,'IdClient');
+    }
+
 }
