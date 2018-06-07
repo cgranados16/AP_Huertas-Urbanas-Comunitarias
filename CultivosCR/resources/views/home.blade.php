@@ -3,11 +3,11 @@
 <link rel="stylesheet" href="{{ asset('css/cultivoscr.css') }}">
 @endsection
 @section('content')
-<div class="bg-primary-dark-op py-30">  
+<div class="bg-primary-dark-op py-30">
     </div>
     <div class="content">
-        
-    
+
+
 <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
         <div class="col-md-4">
             <div class="block">
@@ -46,7 +46,7 @@
                             <div class="mb-20">
                                 <i class="fa fa-cogs fa-4x text-muted"></i>
                             </div>
-                            <div class="font-size-h4 font-w600 text-muted">Ajustes</div>  
+                            <div class="font-size-h4 font-w600 text-muted">Ajustes</div>
                         </div>
                     </div>
                 </a>
@@ -65,7 +65,7 @@
                             <div class="mb-20">
                                 <i class="fa fa-heart fa-4x text-danger"></i>
                             </div>
-                            <div class="font-size-h4 font-w600">Empieza tu huerta!</div>  
+                            <div class="font-size-h4 font-w600">Empieza tu huerta!</div>
                         </div>
                     </div>
                 </a>
@@ -82,7 +82,7 @@
                                 <div class="mb-20">
                                     <img class="harvest-profile-showcase" src="{{ asset($garden->GardenPicture) }}"></img>
                                 </div>
-                                <div class="font-size-h4 font-w600">{{$garden->Name}}</div>  
+                                <div class="font-size-h4 font-w600">{{$garden->Name}}</div>
                             </div>
                         </div>
                     </a>
