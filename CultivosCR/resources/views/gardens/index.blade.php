@@ -50,7 +50,7 @@
                 <div class="block block-themed">
                     <div class="block-content block-content-full bg-image" style="background-image: url('{{ asset($garden->GardenPicture) }}');width:100%;height: 200px;">
                     </div>
-                    <div class="block-content block-content-full block-content-sm ">
+                     <div class="block-content block-content-full block-content-sm ">
                         <div class="font-size-xl font-w600 mb-5">{{ $garden->Name }}</div>
                         <ul class="nav-main p-10">
                             <li>
@@ -93,7 +93,9 @@
                                 <div class="block-content block-content-full">
                                     <div class="py-20 text-center">
                                         <div class="mb-20">
+                                            @if($harvest->harvest->photos->first()!=null)
                                             <img class="harvest-profile-showcase" src="{{ asset($harvest->harvest->photos->first()->Photo) }}"></img>
+                                            @endif
                                         </div>
                                         <div class="font-size-sm font-w600 text-uppercase text-muted">{{$harvest->harvest->Name}}</div>
                                     </div>
