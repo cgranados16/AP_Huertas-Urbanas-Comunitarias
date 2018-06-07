@@ -19,8 +19,8 @@ class Trade extends Model
         return $this->belongsTo(User::class,'IdClient');
     }
 
-    public function harvestByTrades()
+    public function items()
     {
-        return $this->hasMany(HarvestByTrade::class, 'id', 'idTrade');
+        return $this->hasMany(HarvestByTrade::class,'IdTrade');
     }
 }

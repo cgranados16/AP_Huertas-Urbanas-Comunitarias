@@ -4,16 +4,14 @@
 
 <link rel="stylesheet" href="{{ asset('js/plugins/slick/slick.min.css') }}">
 <link rel="stylesheet" href="{{ asset('js/plugins/slick/slick-theme.min.css') }}">
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
 <div class="bg-image bg-image-bottom" style="background-image: url('{{ asset('img/photos/photo13@2x.jpg') }}');">
     <div class="bg-primary-dark-op py-30">
         <div class="content content-full text-center">
             <!-- Personal -->
-            <h1 class="h3 text-white font-w700 mb-30">Agregar un cultivo</h1>
-
-
+            <h1 class="h3 text-white font-w700 mb-30">Crear venta</h1>
         </div>
     </div>
 </div>
@@ -73,4 +71,12 @@
     <!-- END Progress Wizard 2 -->
 </div>
 <!-- END Page Container -->
+<script src="{{ asset('js/core/jquery.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+        // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({width: '100%'});    
+        });
+    </script> 
 @endsection

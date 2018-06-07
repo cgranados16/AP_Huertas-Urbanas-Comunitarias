@@ -7,7 +7,7 @@
     <div class="content">
         <div class="row">
             <div class="col-12">
-                <a class="block block-rounded text-center" href="{{route('trades/create',$garden->id)}}">
+                <a class="block block-rounded text-center" href="{{route('sales/create',$garden->id)}}">
                     <div class="block-content">
                         <p class="mt-5 mb-10">
                             <i class="fa fa-plus-square-o text-gray fa-2x d-xl-none"></i>
@@ -22,33 +22,42 @@
 </div>
 <div class="content">
         <div class="content-heading">
-                Intercambios
+                Trueque
             </div>
         <div class="block block-rounded">
-        <div class="block-content block-content-full">
-                <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/be_tables_datatables.js -->
+
+              <div class="content">
+                  <div class="content-heading">
+                          Productos Vendidos
+                          </div>
+                        <div class="block block-rounded">
+                        <div class="block-content block-content-full">
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                         <tr>
-                            <th style="width: 20%;">Id</th>
-                            <th style="width: 20%;">Cliente</th>
-                            <th style="width: 20%;">FechaCreado</th>
+                            <th style="width: 20%;">Cultivo</th>
+                            <th style="width: 20%;">Cantidad</th>
+                            <th style="width: 20%;">Recibiendo</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($garden->trades as $trade)
+                        @foreach ($trade->items as $item)
                             <tr>
+                                <td>{{$item->harvest->harvest->Name}}</td>
+                                <td>{{$item->Quantity}}</td>
                                 <td>
-                                    <a href="{{url('admin/garden/'.$garden->id.'/Trades/'.$trade->id)}}">{{$trade->id}}</a>
+                                    @if($item->Receiving===0)
+                                        <span class="badge badge-primary">Envia</span>
+                                    @else
+                                        <span class="badge badge-warning">Recibe</span>
+                                    @endif
                                 </td>
-                                <td>{{$trade->client->getFullNameAttribute()}}</td>
-                                <td>{{$trade->created_at}}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-              </div>
-              </div>
+            </div>
+        </div>
 </div>
 @endsection
 @section('scripts')
