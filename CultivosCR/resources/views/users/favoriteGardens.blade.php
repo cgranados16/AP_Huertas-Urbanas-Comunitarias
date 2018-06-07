@@ -7,10 +7,10 @@
     </div>
     <div class="content">
     <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
-        @foreach($gardens as $garden)
+        @foreach($user->favoriteGardens as $garden)
             <div class="col-md-4">
                 <div class="block">
-                    <a href="{{url('admin/garden/'.$garden->id)}}">
+                    <a href="{{url('garden/'.$garden->id)}}">
                         <div class="block-content block-content-full">
                             <div class="py-20 text-center">
                                 <div class="mb-20">

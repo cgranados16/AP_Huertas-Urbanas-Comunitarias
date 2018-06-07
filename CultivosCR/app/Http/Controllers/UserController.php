@@ -23,8 +23,8 @@ class UserController extends Controller
         return view('users/show', ['user' => User::findOrFail($id)]);
     }
 
-    public function favoriteGardens($id)
+    public function favoriteGardens()
     {
-        return view('users/favoriteGardens', ['user' => User::findOrFail($id)]);
+        return view('users/favoriteGardens', ['user' => Auth::user()]);
     }
 }

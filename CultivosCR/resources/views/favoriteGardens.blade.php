@@ -7,7 +7,7 @@
     </div>
     <div class="content">
     <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
-        @foreach($gardens as $garden)
+        @foreach()
             <div class="col-md-4">
                 <div class="block">
                     <a href="{{url('admin/garden/'.$garden->id)}}">

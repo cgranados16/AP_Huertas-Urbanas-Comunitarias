@@ -66,7 +66,7 @@
                             <i class="fa fa-angle-down ml-5"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-150" aria-labelledby="page-header-user-dropdown">
-                            <a class="dropdown-item" href="users/favoriteGardens">
+                            <a class="dropdown-item" href="{{ url('favoriteGardens') }}">
                                 <i class="fa fa-star mr-5"></i> Mis favoritos
                             </a>
                             <a class="dropdown-item">
