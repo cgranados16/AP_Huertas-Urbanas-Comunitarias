@@ -41,45 +41,12 @@
                                 <td>{{$trade->id}}</td>
                                 <td>{{$trade->client->getFullNameAttribute()}}</td>
                                 <td>{{$trade->created_at}}</td>
-                                <td>
-                                    <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="Editar">
-
-                                    </button>
-                                </td>
-
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
               </div>
               </div>
-              <div class="content">
-                  <div class="content-heading">
-                          Productos Intercambiados
-                          </div>
-                        <div class="block block-rounded">
-                        <div class="block-content block-content-full">
-                <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
-                    <thead>
-                        <tr>
-                            <th style="width: 20%;">IdIntercambio</th>
-                            <th style="width: 20%;">Cultivo</th>
-                            <th style="width: 20%;">Cantidad</th>
-                            <th style="width: 20%;">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($garden->trades as $htrade)
-                            <tr>
-                                <td>{{$htrade->HarvestByTrade}}</td>
-                                <td>{{$trade->idHarvest}}</td>
-                                <td>{{$trade->Quantity}}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-          </div>
-      </div>
 </div>
 @endsection
 @section('scripts')

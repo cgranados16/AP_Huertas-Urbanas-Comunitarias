@@ -3,23 +3,6 @@
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables/dataTables.bootstrap4.min.css') }}">
 @endsection
 @section('content')
-<div class="bg-body-dark">
-    <div class="content">
-        <div class="row">
-            <div class="col-12">
-                <a class="block block-rounded text-center" href="{{route('sales/create',$garden->id)}}">
-                    <div class="block-content">
-                        <p class="mt-5 mb-10">
-                            <i class="fa fa-plus-square-o text-gray fa-2x d-xl-none"></i>
-                            <i class="fa fa-plus-square-o text-gray fa-3x d-none d-xl-inline-block"></i>
-                        </p>
-                        <p class="font-w600 font-size-sm text-uppercase">Crear venta</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="content">
         <div class="content-heading">
                 Ventas
