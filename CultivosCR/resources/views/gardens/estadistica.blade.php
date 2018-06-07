@@ -69,45 +69,47 @@
                     </div>
                 </div>
             </div>
-					<div class="block">
-                        <div class="block-header block-header-default">
-                            <h3 class="block-title">estadistica</h3>
-                            <div class="block-options">
-                            </div>
-                        </div>
-                        <div class="block-content">
-                            <table class="table table-vcenter">
-                                <thead class="thead-default">
-                                    <tr>
-                                        <th class="text-center" style="width: 15%;">Categorizacion</th>
-                                        <th class="text-center" style="width: 15%;">Cultivo</th>
-                                        <th class="text-center" style="width: 15%;">En stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  @foreach ($garden->harvests as $harvest)
-                                    <tr>
-                                      @if($harvest->HarvestType == 1)
-                                        <td class="text-center">Arbol</td>
-                                      @else
-                                        <td class="text-center">Vegetal</td>
-                                      @endif
-                                      <td class="text-center" scope="row">{{$harvest->harvest->Name}}</td>
-                                      @if($harvest->InStock == 1)
-                                        <td class="text-center">Disponible</td>
-                                      @else
-                                        <td class="text-center">No disponible</td>
-                                      @endif
+            <div class="col-lg-8 col-xl-9">
+  					       <div class="block">
+                          <div class="block-header block-header-default">
+                              <h3 class="block-title">Estadistica</h3>
+                              <div class="block-options">
+                              </div>
+                          </div>
+                          <div class="block-content">
+                              <table class="table table-vcenter">
+                                  <thead class="thead-default">
+                                      <tr>
+                                          <th class="text-center" style="width: 10%;">Categorizacion</th>
+                                          <th class="text-center" style="width: 10%;">Cultivo</th>
+                                          <th class="text-center" style="width: 10%;">En stock</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    @foreach ($garden->harvests as $harvest)
+                                      <tr>
+                                        @if($harvest->HarvestType == 1)
+                                          <td class="text-center">Arbol</td>
+                                        @else
+                                          <td class="text-center">Vegetal</td>
+                                        @endif
+                                        <td class="text-center" scope="row">{{$harvest->harvest->Name}}</td>
+                                        @if($harvest->InStock == 1)
+                                          <td class="text-center">Disponible</td>
+                                        @else
+                                          <td class="text-center">No disponible</td>
+                                        @endif
 
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                      </tr>
+                                      @endforeach
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
                     </div>
-                    <!-- END Simple Table-->
-                </div>
+                      <!-- END Simple Table-->
+                  </div>
 
-            </div>
+              </div>
             <!-- END Page Content -->
 @endsection
