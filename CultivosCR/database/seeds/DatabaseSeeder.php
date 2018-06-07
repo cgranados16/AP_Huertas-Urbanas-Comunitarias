@@ -33,10 +33,11 @@ class DatabaseSeeder extends Seeder
         // factory(App\Models\Tree::class, 100)->create();
         // factory(App\Models\Vegetable::class, 100)->create();
         // factory(App\Models\Harvest::class, 500)->create();
-        factory(App\Models\Sale::class, 1000)->create();
-        factory(App\Models\Trade::class, 1000)->create();
-        factory(App\Models\HarvestBySale::class, 4000)->create();
-        factory(App\Models\HarvestByTrade::class, 4000)->create();
+        //factory(App\Models\Sale::class, 1000)->create();
+        //factory(App\Models\Trade::class, 1000)->create();
+        //factory(App\Models\HarvestBySale::class, 4000)->create();
+        //factory(App\Models\HarvestByTrade::class, 4000)->create();
+        factory(App\Models\favoriteGardens::class, 1000)->create();
         /**$harvests = Vegetable::all();
                 foreach ($harvests as $harvest) {
                     DB::table('photos_per_vegetable')->insert([

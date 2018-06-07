@@ -17,7 +17,7 @@
 
 <body>
     <div id="page-container" class="sidebar-o side-scroll page-header-fixed page-header-modern main-content-boxed">
-       
+
         <nav id="sidebar">
             <div id="sidebar-scroll">
                 <div class="sidebar-content">
@@ -53,7 +53,7 @@
                                 <li class="list-inline-item">
                                     <a class="link-effect text-dual-primary-dark font-size-xs font-w600 text-uppercase" href="javascript:void(0)"> {{$garden->Name}}</a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
         <header id="page-header">
             <div class="content-header">
                 <div class="content-header-section">
-                       
+
                 </div>
                 <div class="content-header-section">
                     <div class="btn-group" role="group">
@@ -102,13 +102,12 @@
                             <i class="fa fa-angle-down ml-5"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
-                           
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                <i class="fa fa-pencil mr-5"></i> Profile
-                            </a>
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                <i class="fa fa-cog mr-5"></i> Settings
-                            </a>
+                          <a class="dropdown-item" href="{{ url('home') }}">
+                                <i class="fa fa-home"></i> Inicio
+                          </a>
+                          <a class="dropdown-item" href="{{ url('favoriteGardens') }}">
+                              <i class="fa fa-star mr-5"></i> Mis favoritos
+                          </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{route('home')}}">
                                 <i class="fa fa-unlock-alt mr-5"></i> Cerrar Sesión
