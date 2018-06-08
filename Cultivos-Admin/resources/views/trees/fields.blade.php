@@ -7,7 +7,7 @@
                 <!-- Name Field -->
             
                 {!! Form::label('Name', Lang::get('common.name').':', ['class'=>'col-12']) !!}
-                {!! Form::text('Name', null, ['class' => 'form-control col-6']) !!}
+                {!! Form::text('Name', $tree->Name, ['class' => 'form-control col-6']) !!}
         
             </div>
             <div class="form-group row">

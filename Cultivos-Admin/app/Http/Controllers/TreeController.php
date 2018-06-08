@@ -71,40 +71,32 @@ class TreeController extends AppBaseController
         $tree->Order = Input::get('Order');
         $tree->InDanger = Input::get('InDanger');
         $tree->save();
-        // Flash::success(Lang::get('/trees.success'));
-
-        $time = Carbon::now();
+        Flash::success(Lang::get('/trees.success'));
         $files = $request->file('file');
-        foreach($files as $file){
-            $extension = $file->getClientOriginalExtension();    
-            $directory = 'trees/'. $tree->id;
-            $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
-            $upload_success = $file->storeAs($directory, $filename,'photos');
-            $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
-            if ($upload_success && $ext_upload_success) {
-               $photo = new PhotosPerTree();
-               $photo->IdTree = $tree->id;
-               $photo->Photo = 'photos/trees/'. $tree->id.'/'.$filename;
-               $photo->save();
-            }
-        }
+        $this->storePhotos($tree->id,$files);
+        
     }
 
     
-    public function storePhotos(Request $request)
+    public function storePhotos($id, $files)
     {
         $time = Carbon::now();
-        $files = $request->file('file');
-        foreach($files as $file){
-            $extension = $file->getClientOriginalExtension();    
-            $directory = 'trees/'.Input::get('id');
-            $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
-            $upload_success = $file->storeAs($directory, $filename,'photos');
-            $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
-            if ($upload_success && $ext_upload_success) {
-                return response()->json($upload_success, 200);
+        if ($files){
+            foreach($files as $file){
+                $extension = $file->getClientOriginalExtension();    
+                $directory = 'trees/'. $id;
+                $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
+                $upload_success = $file->storeAs($directory, $filename,'photos');
+                $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
+                if ($upload_success && $ext_upload_success) {
+                   $photo = new PhotosPerTree();
+                   $photo->IdTree = $id;
+                   $photo->Photo = 'photos/trees/'. $id.'/'.$filename;
+                   $photo->save();
+                }
             }
-        }        
+        }
+        
     }
 
     /**
@@ -143,8 +135,8 @@ class TreeController extends AppBaseController
 
             return redirect(route('trees.index'));
         }
-
-        return view('trees.edit')->with('tree', $tree);
+        $ordersCatalog = DB::table('treeordercatalog')->get();
+        return view('trees.edit')->with('tree', $tree)->with('ordersCatalog',$ordersCatalog);
     }
 
     /**
@@ -155,21 +147,27 @@ class TreeController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateTreeRequest $request)
-    {
-        $tree = $this->treeRepository->findWithoutFail($id);
+    public function update($id)
+    {   
+        $tree = Tree::find($id);
+        $tree->Name = Input::get('Name');
+        $tree->Order = Input::get('Order');
+        $tree->InDanger = Input::get('InDanger');
+        $tree->save();
 
-        if (empty($tree)) {
-            Flash::error(Lang::get('/trees.not found'));
-
-            return redirect(route('trees.index'));
-        }
-
-        $tree = $this->treeRepository->update($request->all(), $id);
+        $files = Input::file('file');
+        $this->storePhotos($tree->id,$files);
 
         Flash::success(Lang::get('/trees.update'));
 
         return redirect(route('trees.index'));
+    }
+
+    public function destroyPhoto()
+    {
+        $id = Input::get('id');
+        PhotosPerTree::destroy($id);
+        //return redirect(route('trees.index'));
     }
 
     /**
@@ -181,6 +179,7 @@ class TreeController extends AppBaseController
      */
     public function destroy($id)
     {
+        
         $tree = $this->treeRepository->findWithoutFail($id);
 
         if (empty($tree)) {
@@ -190,6 +189,7 @@ class TreeController extends AppBaseController
         }
 
         $this->treeRepository->delete($id);
+        
 
         Flash::success(Lang::get('/trees.success'));
 

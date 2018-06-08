@@ -57,4 +57,10 @@ class Tree extends Model
     {
         return $this->hasOne(\App\Models\TreeOrderCatalog::class, 'id');
     }
+
+
+    public function photos()
+    {
+        return $this->hasMany(PhotosPerTree::class,'IdTree','id');
+    }
 }

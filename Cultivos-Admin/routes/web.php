@@ -61,11 +61,11 @@ Route::get('catalogs/fertilizerCatalogs/{fertilizerCatalogs}', ['as'=> 'catalogs
 Route::get('catalogs/fertilizerCatalogs/{fertilizerCatalogs}/edit', ['as'=> 'catalogs.fertilizerCatalogs.edit', 'uses' => 'Catalogs\FertilizerCatalogController@edit']);
 
 Route::resource('trees', 'TreeController');
-Route::post('trees/storePhotos', 'TreeController@storePhotos')->name('trees.storePhotos');
+Route::post('trees/photo', 'TreeController@destroyPhoto')->name('trees.destroy_photo');
 Route::get('vegetables/getdata', 'VegetableController@getVegetables')->name('vegetables/getdata');
 Route::resource('vegetables', 'VegetableController');
 Route::post('vegetables/create/photos', ['as'=> 'vegetables.create.store', 'uses' => 'VegetableController@photos_upload']);
 
-Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware('role:admin');
+Route::get('/admin', 'AdminController@index')->name('admin.index');
 
-Route::get('/admin/create', 'AdminController@create')->name('admin.create')->middleware('role:admin');
+Route::get('/admin/create', 'AdminController@create')->name('admin.create');

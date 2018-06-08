@@ -12,6 +12,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicons/apple-touch-icon-180x180.png') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" id="css-main" href="{{ asset('css/codebase.min.css') }}">
+    <link rel="stylesheet" id="css-main" href="{{ asset('css/cultivoscr.css') }}">
     <link rel="stylesheet" id="css-theme" href="{{ asset('css/themes/flat.min.css') }}">    
         
     @yield('styles')
