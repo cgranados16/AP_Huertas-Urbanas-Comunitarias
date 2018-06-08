@@ -24,7 +24,8 @@ class Tree extends Model
     public $fillable = [
         'Name',
         'Order',
-        'InDanger'
+        'InDanger',
+        'file',
     ];
 
     /**
@@ -35,7 +36,8 @@ class Tree extends Model
     protected $casts = [
         'Name' => 'string',
         'Order' => 'integer',
-        'InDanger' => 'boolean'
+        'InDanger' => 'boolean',
+        'file' => 'array',
     ];
 
     /**

@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'external_photos_path' => 'C:/xampp/htdocs/laravelapps/AP_Huertas-Urbanas-Comunitarias/CultivosCR/public/',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

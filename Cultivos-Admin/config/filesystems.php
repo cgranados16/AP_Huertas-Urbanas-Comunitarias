@@ -48,6 +48,18 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'photos' => [
+            'driver' => 'local',
+            'root' => public_path('photos'),
+            'url' => env('APP_URL').'/photos',
+            'visibility' => 'public',
+        ],
+
+        'ext_photos' => [
+            'driver' => 'local',
+            'root' => 'C:/xampp/htdocs/laravelapps/AP_Huertas-Urbanas-Comunitarias/CultivosCR/public/photos',
+        ],
+    
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

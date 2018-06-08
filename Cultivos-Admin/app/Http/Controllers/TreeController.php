@@ -12,6 +12,10 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Illuminate\Support\Facades\DB;
 use Lang;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
+use App\Models\Tree;
+use App\Models\PhotosPerTree;
 
 class TreeController extends AppBaseController
 {
@@ -58,15 +62,49 @@ class TreeController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateTreeRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        
 
-        $tree = $this->treeRepository->create($input);
-            
-        Flash::success(Lang::get('/trees.success'));
+        $tree = new Tree();
+        $tree->Name = Input::get('Name');
+        $tree->Order = Input::get('Order');
+        $tree->InDanger = Input::get('InDanger');
+        $tree->save();
+        // Flash::success(Lang::get('/trees.success'));
 
-        return redirect(route('trees.index'));
+        $time = Carbon::now();
+        $files = $request->file('file');
+        foreach($files as $file){
+            $extension = $file->getClientOriginalExtension();    
+            $directory = 'trees/'. $tree->id;
+            $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
+            $upload_success = $file->storeAs($directory, $filename,'photos');
+            $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
+            if ($upload_success && $ext_upload_success) {
+               $photo = new PhotosPerTree();
+               $photo->IdTree = $tree->id;
+               $photo->Photo = 'photos/trees/'. $tree->id.'/'.$filename;
+               $photo->save();
+            }
+        }
+    }
+
+    
+    public function storePhotos(Request $request)
+    {
+        $time = Carbon::now();
+        $files = $request->file('file');
+        foreach($files as $file){
+            $extension = $file->getClientOriginalExtension();    
+            $directory = 'trees/'.Input::get('id');
+            $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
+            $upload_success = $file->storeAs($directory, $filename,'photos');
+            $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
+            if ($upload_success && $ext_upload_success) {
+                return response()->json($upload_success, 200);
+            }
+        }        
     }
 
     /**
@@ -157,4 +195,6 @@ class TreeController extends AppBaseController
 
         return redirect(route('trees.index'));
     }
+
+
 }

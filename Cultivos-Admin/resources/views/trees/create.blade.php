@@ -5,20 +5,14 @@
 </section>
 
 @include('adminlte-templates::common.errors')
-{!! Form::open(['route' => 'trees.store']) !!}
 
-@include('trees.fields')
-
+{!! Form::open(['route'=> 'trees.store', 'method' => 'POST', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone']) !!}
+    {!! csrf_field() !!}
+    <!-- Submit Field -->
+    @include('trees.fields')
+    
 {!! Form::close() !!}
 
-<div class="block block-rounded block-themed">
-    <div class="block-header bg-gd-primary">
-        <h3 class="block-title">Images</h3>
-    </div>
-    <div class="block-content block-content-full">
-        <form action="/trees.store" class="dropzone" id="my-awesome-dropzone"></form>
-    </div>
-</div>
 @endsection @section('scripts')
 
 
@@ -32,4 +26,30 @@
         $('.js-example-basic-single').select2({width: '100%'});
         Codebase.helpers(['maxlength', 'select2']);
     });
-</script> @endsection
+</script>
+<script> 
+    Dropzone.options.myDropzone = {
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        maxFiles: 10,
+        parallelUploads: 10,
+        addRemoveLinks: true,
+        
+        init: function() {
+            var submitBtn = document.querySelector("#submit");
+            myDropzone = this;
+            
+            submitBtn.addEventListener("click", function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                myDropzone.processQueue();
+            });  
+            this.on("successmultiple", function(files, response) {
+                window.location.href="{{route('trees.index')}}";
+            });
+        }
+
+    };
+</script>
+
+@endsection
