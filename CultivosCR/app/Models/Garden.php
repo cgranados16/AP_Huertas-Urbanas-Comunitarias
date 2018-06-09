@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Garden extends Model
 {
@@ -39,6 +40,11 @@ class Garden extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class,'IdGarden');
+    }
+
+    public function myReview()
+    {
+        return $this->reviews()->where('IdClient',Auth::id())->first();
     }
 
     public function gardenScore()

@@ -7,12 +7,14 @@ use App\Models\Tree;
 use App\Models\Vegetable;
 use App\Models\Sale;
 use App\Models\Trade;
+use App\Models\Review;
 use App\Models\FavoriteGardens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use DB;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 
 
@@ -56,6 +58,17 @@ class GardenController extends Controller
         $garden->GardenPicture = 'photos/gardens/1/garden.jpg';
         $garden->save();
         return redirect(route('home'));
+    }
+    
+    public function storeReview($id){
+        $review = new Review();
+        $review->IdClient = Auth::id();
+        $review->Date = Carbon::now();
+        $review->Score = Input::get('score');
+        $review->Description = Input::get('Description');
+        $garden = Garden::find($id);
+        $garden->reviews()->save($review);
+        return redirect()->back();
     }
 
 /**

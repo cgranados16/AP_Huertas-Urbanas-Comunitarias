@@ -32,6 +32,12 @@ function openFruitModal() {
     jQuery('#fruitModal').modal('show');
 }
 
+function openReviewModal(score) {
+    jQuery('#reviewModal').modal('show');
+    $('#reviewScore').raty('score', score);  
+
+}
+
 function addFavorite(id){
     Codebase.layout('header_loader_on');
     $.ajaxSetup({
@@ -108,9 +114,24 @@ var BeCompRating = function() {
             ratingEl.raty({
                 score: ratingEl.data('score') || 0,
                 starOff: ratingEl.data('star-off') || 'fa fa-fw fa-star text-muted',
-                starOn: ratingEl.data('star-on') || 'fa fa-fw fa-star text-warning'
+                starOn: ratingEl.data('star-on') || 'fa fa-fw fa-star text-warning',
+                click: function(score, evt) {
+                    openReviewModal(score);
+                }
             });
         });
+        jQuery('.js-rating2').each(function(){
+            var ratingEl = jQuery(this);
+
+            ratingEl.raty({
+                score: ratingEl.data('score') || 0,
+                starOff: ratingEl.data('star-off') || 'fa fa-fw fa-star text-muted',
+                starOn: ratingEl.data('star-on') || 'fa fa-fw fa-star text-warning',
+                targetKeep: true,
+                target: '#hint',
+            });
+        });
+        
     };
 
     return {

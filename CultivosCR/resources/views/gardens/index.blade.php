@@ -147,26 +147,37 @@
                                 <h5 class="text-muted">{{ count($garden->reviews) }} opiniones</h5>
                             </div>
                         </div>
-                        <div class="clearfix">
-                            <div class="float-left">
-                                <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt="">
+                        @if(!$garden->myReview())
+                            <div class="clearfix">
+                                <div class="float-left">
+                                    <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt="">
+                                </div>
+                                <div class="float-left p-5 m l-10">
+                                    @auth
+                                        <div class="font-w600" style="font-size:16px">Di a los demás qué te parece</div>
+                                        <div class="js-rating" id="rateGarden" data-star-on="fa fa-fw fa-2x fa-star text-primary" data-star-off="fa fa-fw fa-2x fa-star text-muted"></div>
+                                    @else
+                                        <a href="{{route('login')}}"><div class="font-w600 p-15" style="font-size:16px">Inicia Sesión para dejar tu opinión sobre esta huerta.</div></a>   
+                                    @endif
+                                </div>
                             </div>
-                            <div class="float-left p-5 m l-10">
-                                @auth
-                                <div class="font-w600" style="font-size:16px">Di a los demás qué te parece</div>
-                                <div class="js-rating" data-star-on="fa fa-fw fa-2x fa-star text-primary" data-star-off="fa fa-fw fa-2x fa-star text-muted"></div>
-                                @else
-                            <a href="{{route('login')}}"><div class="font-w600 p-15" style="font-size:16px">Inicia Sesión para dejar tu opinión sobre esta huerta.</div></a>
-                                    
-                                @endif
-                            </div>
-                        </div>
+                        @endif
                     </div>
-                    <hr>
+                    <hr style="padding-top: 0">
 
                     <div class="block-content pt-0">
                         <ul class="nav-reviews push">
-                            @foreach ($garden->reviews as $review)
+                            @if($garden->myReview())
+                                <li>
+                                    <a href="be_pages_generic_profile.php">
+                                        <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt=""> {{$garden->myReview()->user->getFullNameAttribute()}}
+                                        <small>{{$garden->myReview()->Date->diffForHumans()}}</small>
+                                        <div class="js-rating-read" data-score="{{$garden->myReview()->Score}}" data-star-on="fa fa-fw fa-star text-primary" data-star-off="fa fa-fw fa-star text-muted"></div>
+                                        <div class="font-w400 font-size-xs text-muted">{{$garden->myReview()->Description}}</div>
+                                    </a>
+                                </li>
+                            @endif
+                            @foreach ($garden->reviews->where('IdClient','!=',Auth::id())->take(2) as $review)
                             <li>
                                 <a href="be_pages_generic_profile.php">
                                     <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt=""> {{$review->user->getFullNameAttribute()}}
@@ -259,7 +270,7 @@
             <div class="modal-content">
                 <div class="block block-themed block-transparent mb-0">
                     <div class="block-header bg-primary-dark">
-                        <h3 class="block-title">Huerta del Sol</h3>
+                        <h3 class="block-title">{{$garden->Name}}</h3>
                         <div class="block-options">
                             <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                 <i class="si si-close"></i>
@@ -277,122 +288,40 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="fruitModal" tabindex="-1" role="dialog" aria-labelledby="modal-popout">
-        <div class="modal-dialog modal-lg modal-dialog-popout" role="document">
-            <div class="modal-content">
-                <div class="block block-themed block-transparent mb-0">
-                    <div class="block-header bg-primary-dark">
-                        <h3 class="block-title">Huerta del Sol</h3>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                                <i class="si si-close"></i>
-                            </button>
+
+    <div class="modal fade modal-center" id="reviewModal" role="dialog" aria-labelledby="modal-popout">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <form action="{{route('gardens.review',[$garden->id])}}" method="POST">
+                @csrf
+                <div class="modal-content ">
+                    <div class="block block-themed block-transparent mb-0">
+                        <div class="block-header bg-primary-dark">
+                            <h3 class="block-title">Deja tu comentario</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                    <i class="si si-close"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="block-content block-content-full">
-                        <div class="row py-20">
-                            <div class="col-sm-6 js-appear-enabled animated fadeIn" data-toggle="appear">
-                                <div class="js-slider slick-nav-black slick-dotted-inner slick-dotted-white js-slider-enabled slick-initialized slick-slider slick-dotted"
-                                    data-dots="true" data-arrows="true">
-                                    <button class="slick-prev slick-arrow" aria-label="Previous" type="button">Previous</button>
-                                    <div class="slick-list draggable">
-                                        <div class="slick-track" style="opacity: 1; width: 3801px; transform: translate3d(-1629px, 0px, 0px);">
-                                            <div class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true"
-                                                style="width: 543px;" tabindex="-1">
-                                                <img class="img-fluid" src="{{ asset('img/various/cb-project-promo3.png') }}" alt="Project Promo 3">
-                                            </div>
-                                            <div class="slick-slide" data-slick-index="0" aria-hidden="true" style="width: 543px;"
-                                                tabindex="-1" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00">
-                                                <img class="img-fluid" src="{{ asset('img/various/cb-project-promo1.png') }}" alt="Project Promo 1">
-                                            </div>
-                                            <div class="slick-slide" data-slick-index="1" aria-hidden="true" style="width: 543px;"
-                                                tabindex="-1" role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01">
-                                                <img class="img-fluid" src="{{ asset('img/various/cb-project-promo2.png') }}" alt="Project Promo 2">
-                                            </div>
-                                            <div class="slick-slide slick-current slick-active" data-slick-index="2"
-                                                aria-hidden="false" style="width: 543px;" tabindex="0" role="tabpanel" id="slick-slide02"
-                                                aria-describedby="slick-slide-control02">
-                                                <img class="img-fluid" src="{{ asset('img/various/cb-project-promo3.png') }}" alt="Project Promo 3">
-                                            </div>
-                                            <div class="slick-slide slick-cloned" data-slick-index="3" aria-hidden="true"
-                                                style="width: 543px;" tabindex="-1">
-                                                <img class="img-fluid" src="{{ asset('img/various/cb-project-promo1.png') }}" alt="Project Promo 1">
-                                            </div>
-                                            <div class="slick-slide slick-cloned" data-slick-index="4" aria-hidden="true"
-                                                style="width: 543px;" tabindex="-1">                                                
-                                                <img class="img-fluid" src="{{ asset('img/various/cb-project-promo2.png') }}" alt="Project Promo 2">
-                                            </div>
-                                            <div class="slick-slide slick-cloned" data-slick-index="5" aria-hidden="true"
-                                                style="width: 543px;" tabindex="-1">
-                                                <img class="img-fluid" src="{{ asset('img/various/cb-project-promo3.png') }}" alt="Project Promo 3">
-                                            </div>
-                                        </div>
+                        <div class="block-content">   
+                        
+                                <div class="js-rating2 text-center" name="score" id="reviewScore" data-star-on="fa fa-fw fa-2x fa-star text-primary" data-star-off="fa fa-fw fa-2x fa-star text-muted"></div>
+                                <h4 id="hint" class="text-center"><strong></strong></h4>
+                                <div class="form-group row">
+                                    <label class="col-12" for="Description">Comentario:</label>
+                                    <div class="col-12">
+                                        <textarea class="form-control" id="Description" name="Description" rows="6"></textarea>
                                     </div>
-
-
-                                    <button class="slick-next slick-arrow" aria-label="Next" type="button" style="">Next</button>
-                                    <ul class="slick-dots" style="" role="tablist">
-                                        <li class="" role="presentation">
-                                            <button type="button" role="tab" id="slick-slide-control00" aria-controls="slick-slide00"
-                                                aria-label="1 of 3" tabindex="-1">1</button>
-                                        </li>
-                                        <li role="presentation" class="">
-                                            <button type="button" role="tab" id="slick-slide-control01" aria-controls="slick-slide01"
-                                                aria-label="2 of 3" tabindex="-1">2</button>
-                                        </li>
-                                        <li role="presentation" class="slick-active">
-                                            <button type="button" role="tab" id="slick-slide-control02" aria-controls="slick-slide02"
-                                                aria-label="3 of 3" tabindex="0" aria-selected="true">3</button>
-                                        </li>
-                                    </ul>
                                 </div>
-                                <table class="table table-striped table-borderless mt-20">
-                                    <tbody>
-                                        <tr>
-                                            <td class="font-w600">Client</td>
-                                            <td>Company S.A.</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-w600">Budget</td>
-                                            <td>$10.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-w600">Category</td>
-                                            <td>Web Development</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-w600">Website</td>
-                                            <td>
-                                                <a href="javascript:void(0)">https://example.com/</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-sm-6 nice-copy">
-                                <h3 class="mb-10">Introduction</h3>
-                                <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing
-                                    luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus
-                                    lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus
-                                    mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
-                                <h3 class="mt-20 mb-10">Research</h3>
-                                <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing
-                                    luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus
-                                    lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus
-                                    mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
-                                <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing
-                                    luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus
-                                    lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus
-                                    mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
-                            </div>
+                            
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" value="Submit" class="btn btn-alt-success">Aceptar</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="https://www.google.com/maps?saddr=My+Location&daddr={{ $garden->Latitude }},{{ $garden->Longitude }}" target="_blank" class="btn btn-alt-success">Cómo llegar</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

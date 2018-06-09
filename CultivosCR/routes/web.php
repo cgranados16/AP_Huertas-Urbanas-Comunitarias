@@ -34,6 +34,7 @@ Route::get('admin/garden/{id}/Trades/create', 'GardenController@createTrade')->n
 
 Route::get('admin/garden/{id}', 'GardenController@showAdmin');
 Route::get('admin/garden/{id}/products', 'GardenController@productsAdmin');
+Route::post('admin/garden/{id}', 'GardenController@storeReview')->name('gardens.review');
 
 Route::resource('garden', 'GardenController');
 Route::get('garden/{id}/reviews', 'GardenController@reviews');
