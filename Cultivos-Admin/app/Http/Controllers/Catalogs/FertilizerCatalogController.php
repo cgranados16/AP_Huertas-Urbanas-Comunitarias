@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Lang;
 
 class FertilizerCatalogController extends AppBaseController
 {
@@ -60,7 +61,7 @@ class FertilizerCatalogController extends AppBaseController
 
         $fertilizerCatalog = $this->fertilizerCatalogRepository->create($input);
             
-        Flash::success(Lang::get('rtrim(catalogs.,". ")/fertilizer_catalogs.success'));
+        Flash::success(Lang::get('catalogs/fertilizer_catalogs.success'));
 
         return redirect(route('catalogs.fertilizerCatalogs.index'));
     }
@@ -77,7 +78,7 @@ class FertilizerCatalogController extends AppBaseController
         $fertilizerCatalog = $this->fertilizerCatalogRepository->findWithoutFail($id);
 
         if (empty($fertilizerCatalog)) {
-            Flash::error(Lang::get('rtrim(catalogs.,". ")/fertilizer_catalogs.not found'));
+            Flash::error(Lang::get('catalogs/fertilizer_catalogs.not found'));
 
             return redirect(route('catalogs.fertilizerCatalogs.index'));
         }
@@ -97,7 +98,7 @@ class FertilizerCatalogController extends AppBaseController
         $fertilizerCatalog = $this->fertilizerCatalogRepository->findWithoutFail($id);
 
         if (empty($fertilizerCatalog)) {
-            Flash::error(Lang::get('rtrim(catalogs.,". ")/fertilizer_catalogs.not found'));
+            Flash::error(Lang::get('catalogs/fertilizer_catalogs.not found'));
 
             return redirect(route('catalogs.fertilizerCatalogs.index'));
         }
@@ -118,14 +119,14 @@ class FertilizerCatalogController extends AppBaseController
         $fertilizerCatalog = $this->fertilizerCatalogRepository->findWithoutFail($id);
 
         if (empty($fertilizerCatalog)) {
-            Flash::error(Lang::get('rtrim(catalogs.,". ")/fertilizer_catalogs.not found'));
+            Flash::error(Lang::get('catalogs/fertilizer_catalogs.not found'));
 
             return redirect(route('catalogs.fertilizerCatalogs.index'));
         }
 
         $fertilizerCatalog = $this->fertilizerCatalogRepository->update($request->all(), $id);
 
-        Flash::success(Lang::get('rtrim(catalogs.,". ")/fertilizer_catalogs.update'));
+        Flash::success(Lang::get('catalogs/fertilizer_catalogs.update'));
 
         return redirect(route('catalogs.fertilizerCatalogs.index'));
     }
@@ -142,14 +143,14 @@ class FertilizerCatalogController extends AppBaseController
         $fertilizerCatalog = $this->fertilizerCatalogRepository->findWithoutFail($id);
 
         if (empty($fertilizerCatalog)) {
-            Flash::error(Lang::get('rtrim(catalogs.,". ")/fertilizer_catalogs.not found'));
+            Flash::error(Lang::get('catalogs/fertilizer_catalogs.not found'));
 
             return redirect(route('catalogs.fertilizerCatalogs.index'));
         }
 
         $this->fertilizerCatalogRepository->delete($id);
 
-        Flash::success(Lang::get('rtrim(catalogs.,". ")/fertilizer_catalogs.success'));
+        Flash::success(Lang::get('catalogs/fertilizer_catalogs.success'));
 
         return redirect(route('catalogs.fertilizerCatalogs.index'));
     }

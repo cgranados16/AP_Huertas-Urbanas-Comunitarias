@@ -20,9 +20,8 @@
                     
                     <th style="width:8%;">@Lang('common.id')</th>
                     <th>@Lang('common.name')</th>
-                    <th>@Lang('auth.email')</th>
-                    <th style="width:15%;">acceso</th>
-                    <th>perfil</th>                    
+                    <th>@Lang('auth.email')</th>       
+                    <th style="width:8%;">@Lang('common.action')</th>       
                 </tr>
             </thead>
             <tbody>
@@ -32,15 +31,13 @@
                         <td>{!! $user->getFullNameAttribute() !!}</td>
                         <td>{!! $user->email !!}</td>
                         <td>
-                            @foreach($user->roles as $role)
-                                <span class="badge badge-danger">{!! $role->name !!}</span>
-                            @endforeach
-                        </td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-sm btn-secondary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="View Customer">
-                                <i class="fa fa-user"></i>
-                            </button>
-                        </td>
+                        {!! Form::open(['route' => ['admin.destroy', $user->id], 'method' => 'delete']) !!}
+                        <div class='btn-group'>
+                            {!! Form::button('<i class="fa fa-times"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-secondary primary-color text-primary',
+                                'onclick' => "return confirm('Are you sure?')",'data-toggle'=>"tooltip",  'data-original-title'=>Lang::get('common.delete') ]) !!}
+                        </div>
+                        {!! Form::close() !!}
+                    </td>
                     </tr>
                 @endforeach
             </tbody>

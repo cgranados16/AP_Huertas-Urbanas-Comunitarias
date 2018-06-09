@@ -18,4 +18,5 @@ return [
     'no' => 'No',
     'settings' => 'Ajustes',
     'search_placeholder' => 'Buscar...',
+    'dropzone'  => 'Arrastra para agregar imágenes',
 ];

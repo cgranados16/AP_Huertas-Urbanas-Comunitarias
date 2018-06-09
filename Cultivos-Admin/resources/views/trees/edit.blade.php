@@ -12,7 +12,8 @@
 {!! Form::model($tree,['route'=> ['trees.update', $tree->id], 'method' => 'PATCH', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone']) !!}
     {!! csrf_field() !!}
     <!-- Submit Field -->
-    @include('trees.fields') 
+    @include('trees.fields')
+    <div class="dz-message" data-dz-message><span> @lang('common.dropzone') </span></div>
     <input type="hidden" id="deleted" name="deleted[]" value="[]">
 {!! Form::close() !!}
 
@@ -21,7 +22,7 @@
  <!-- Images -->
  <div class="block block-rounded block-themed pt-15">
     <div class="block-header bg-gd-primary">
-        <h3 class="block-title">Imagenes</h3>
+        <h3 class="block-title">Imágenes</h3>
     </div>
     <div class="block-content block-content-full">
         <div class="row gutters-tiny items-push">

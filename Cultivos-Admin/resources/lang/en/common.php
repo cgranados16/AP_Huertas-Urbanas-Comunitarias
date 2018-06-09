@@ -18,4 +18,5 @@ return [
     'no'  => 'No',
     'settings'  => 'Setting',
     'search_placeholder'  => 'Search...',
+    'dropzone'  => 'Drop files here to upload',
 ];

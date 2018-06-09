@@ -167,7 +167,6 @@ class TreeController extends AppBaseController
     {
         $id = Input::get('id');
         PhotosPerTree::destroy($id);
-        //return redirect(route('trees.index'));
     }
 
     /**
@@ -181,13 +180,19 @@ class TreeController extends AppBaseController
     {
         
         $tree = $this->treeRepository->findWithoutFail($id);
-
+        
         if (empty($tree)) {
             Flash::error(Lang::get('/trees.not found'));
 
             return redirect(route('trees.index'));
         }
-
+        $photos = Tree::find($id);
+        $photos = $photos->photos;
+        if ($photos){
+            foreach ($photos as $photo) {
+               $photo->delete();
+            }
+        }
         $this->treeRepository->delete($id);
         
 
