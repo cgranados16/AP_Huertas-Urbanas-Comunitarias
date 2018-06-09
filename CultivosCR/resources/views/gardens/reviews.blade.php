@@ -227,13 +227,13 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                     });
-                    var id = null;
+                    
                     @if($garden->myReview())
-                        id = {{$garden->myReview()->id}};
-                    @endif
+                        
+                    
                     
                     $.ajax({
-                        url: "{{route('gardens.review.destroy',[$garden->myReview()])}}",
+                        url: "{{route('gardens.review.destroy',[$garden->myReview()->id])}}",
                         type: 'delete',
                         success: function(result) {
                             swal(
@@ -247,7 +247,7 @@
                             location.reload();
                         }
                     });
-                    
+                    @endif
                 }
             })
         };

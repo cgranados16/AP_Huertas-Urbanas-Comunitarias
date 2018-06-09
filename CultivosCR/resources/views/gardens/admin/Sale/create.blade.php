@@ -19,7 +19,8 @@
 </div>
 <!-- Main Content -->
 <!-- Progress Wizard 2 -->
-<div class="content">
+{!! Form::open(['route' => ['sales/create', $garden->id], 'method' => 'post']) !!}
+    <div class="content">
         <div class="block block-rounded ">
                 <div class="block-header">
                     <h3 class="block-title">Información sobre la venta</h3>
@@ -32,13 +33,14 @@
                 <div class="block-content block-content-full">
                     <div class="form-group row">
                         <div class="col-12">
-                            <label for="District">IdCliente</label>
-                            <input type="text" class="form-control" name="correoCliente">
+                            <label for="IdClient">IdCliente</label>
+                            <input type="text" class="form-control" name="IdClient">
                         </div>
                     </div>
                     
                     
                     <input type="hidden" id="harvests" name="harvests[]">
+                    <input type="hidden" id="quantities" name="quantities[]">
 
                     <a href="javascript:$('#addHarvestModal').modal().show();"><button type="button" class="btn btn-primary">Agregar Nuevo Producto</button></a>
 
@@ -51,15 +53,6 @@
                                 </tr>
                             </thead>
                             <tbody>                                
-                                <tr>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>
-                                        <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="{{Lang::get('common.edit')}}">
-                                            <a href="#"><i class="fa fa-times"></i></a>
-                                        </button>
-                                    </td>
-                                </tr>                                
                             </tbody>
                         </table>
                         
@@ -73,6 +66,7 @@
     <!-- END Progress Wizard 2 -->
 
 </div>
+{!! Form::close() !!}
 
 
 <div class="modal fade modal-center" id="addHarvestModal" role="dialog" aria-labelledby="modal-popout">
@@ -99,7 +93,7 @@
                                         <select id="harvestSelect" class="js-example-basic-single" name="Harvest">
                                             <div></div>
                                             @foreach($garden->harvests as $h)
-                                                <option imagesrc="{{$h->harvest->photos->first()->Photo}}" value="{{$h->id}}">{{$h->harvest->Name}}</option>
+                                                <option @if($h->harvest->photos->first()) imagesrc="{{$h->harvest->photos->first()->Photo}}" @endif value="{{$h->id}}">{{$h->harvest->Name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -128,34 +122,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
     var products = []
+    var quantities = []
     $(document).ready(function () {
         $('.js-example-basic-single').select2({width: '100%'});   
-        // var array = $("#harvests").val();
-        // console.log(array);
-        // addHarvest(5,12);
         $('#harvestSelect').on("select2:selecting", function(e) { 
             var id = $('#harvestSelect option:selected').attr('value');
             getGardenPhoto(id);
         });
     });
-
-    function Harvest(product, quantity) {
-        this.product = product;
-        this.quantity = quantity;
-    }
-
-    Harvest.prototype.toString = function harvestToString() {
-        return this.product.toString() +" "+this.quantity.toString();
-    }
+   
 
     function addHarvest(){
         var product = $('#harvestSelect option:selected').attr('value');
         var quantity = $('#quantity').val();
-        var harvest = new Harvest(product, quantity);
-        products.push(harvest);
+        products.push(product);
+        quantities.push(quantity);
         $('#harvests').val(products);
-        $('#productsTable tr:last').after('<tr>3</tr><tr>2</tr><tr>2</tr>');
-        //$('#addHarvestModal').modal().hide();
+        $('#productsTable tr:last').after(
+        `<tr>
+            <td>`+product+`</td>
+            <td>`+quantity+`</td>
+            <td>
+                <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="{{Lang::get('common.edit')}}">
+                    <a href="#"><i class="fa fa-times"></i></a>
+                </button>
+            </td>
+        </tr>     
+        `);
+        $('#quantities').val(quantities);
     }
 
     function getGardenPhoto(id){

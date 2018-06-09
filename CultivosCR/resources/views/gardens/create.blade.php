@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="{{ asset('js/plugins/slick/slick.min.css') }}">
 <link rel="stylesheet" href="{{ asset('js/plugins/slick/slick-theme.min.css') }}">
+<link rel="stylesheet" href="{{ asset('js/plugins/dropzonejs/min/dropzone.min.css') }}"> 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
 @section('content')
@@ -39,7 +41,7 @@
         <!-- END Step Tabs -->
 
         <!-- Form -->
-        <form action="{{route('garden.store')}}" method="POST">
+        {!! Form::open(['route' =>'garden.store', 'method' => 'post', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone']) !!}
             @csrf
             <!-- Steps Content -->
             <div class="block-content block-content-full tab-content" style="min-height: 274px;">
@@ -57,7 +59,7 @@
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label for="District">Distrito</label>
-                                    <select class="js-example-basic-single" name="District">
+                                    <select class="js-example-basic-single" id="District" name="District">
                                         @foreach($districts as $district)
                                             <option value="{{$district->id}}">{{$district->Name}}</option>
                                         @endforeach
@@ -97,8 +99,12 @@
                 <!-- END Step 1 -->
 
                 <!-- Step 2 -->
-                <div class="tab-pane" id="wizard-progress2-step2" role="tabpanel">                         
-                    
+                <div class="tab-pane" id="wizard-progress2-step2" role="tabpanel">
+                    <div class="dropzone dz-clickable" id="myDrop">
+                        <div class="dz-default dz-message" data-dz-message="">
+                            <span>Drop files here to upload</span>
+                        </div>
+                    </div>                    
                 </div>
                 <!-- END Step 2 -->                
             </div>
@@ -116,14 +122,15 @@
                         <button type="button" class="btn btn-alt-secondary" data-wizard="next">
                             Next <i class="fa fa-angle-right ml-5"></i>
                         </button>
-                        <button type="submit" class="btn btn-alt-primary d-none" data-wizard="finish">
+                        
+                        <button class="btn btn-alt-primary d-none" id="submit" data-wizard="finish">
                             <i class="fa fa-check mr-5"></i> Submit
                         </button>
                     </div>
                 </div>
             </div>
             <!-- END Steps Navigation -->
-        </form>
+        {!! Form::close() !!}
         <!-- END Form -->
     </div>
     <!-- END Progress Wizard 2 -->
@@ -138,7 +145,50 @@
      <script src="{{ asset('js/plugins/jquery-validation/additional-methods.min.js') }}"></script>
      <!-- Page JS Code -->
      <script src="{{ asset('js/pages/be_forms_wizard.js') }}"></script>
+     <script src="{{ asset('js/plugins/dropzonejs/min/dropzone.min.js')}}"></script>
+    <script>
 
+        Dropzone.autoDiscover = false;
+        $("div#myDrop").dropzone({
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            maxFiles: 10,
+            url: '{{route("garden.store")}}',
+            parallelUploads: 10,
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            
+            init: function() {
+                var submitBtn = document.querySelector("#submit");
+                myDropzone = this;
+                
+            
+                submitBtn.addEventListener("click", function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    myDropzone.processQueue();
+                    
+                }); 
+                // Event to send your custom data to your server
+                myDropzone.on("sending", function(file, xhr, data) {
+
+                    // First param is the variable name used server side
+                    // Second param is the value, you can add what you what
+                    // Here I added an input value
+                    data.append("Name", $('#Name').val());
+                    data.append("District", $('#District').val());
+                    data.append("Directions", $('#Directions').val());
+                    data.append("Latitude", $('#Latitude').val());
+                    data.append("Longitude", $('#Longitude').val());
+                }); 
+                this.on("successmultiple", function(files, response) {
+                    window.location.href = "{{route('home')}}";
+                });          
+            }
+        });
+    </script>
      <script>
             // In your Javascript (external .js resource or <script> tag)
             $(document).ready(function () {

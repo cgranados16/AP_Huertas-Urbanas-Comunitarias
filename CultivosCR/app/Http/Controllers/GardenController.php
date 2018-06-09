@@ -8,7 +8,9 @@ use App\Models\Vegetable;
 use App\Models\Sale;
 use App\Models\Trade;
 use App\Models\Review;
+use App\Models\PhotosPerGarden;
 use App\Models\FavoriteGardens;
+use App\Models\HarvestBySale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -55,10 +57,37 @@ class GardenController extends Controller
         $garden->Directions = Input::get('Directions');
         $garden->Latitude = Input::get('Latitude');
         $garden->Longitude = Input::get('Longitude');
-        $garden->GardenPicture = 'photos/gardens/1/garden.jpg';
         $garden->save();
+        $files = Input::file('file');
+        if($files){
+            $this->storePhotos($garden,$files);
+        }
         return redirect(route('home'));
     }
+
+    public function storePhotos($garden, $files)
+    {
+        $id = $garden->id;
+        $time = Carbon::now();
+        foreach($files as $file){
+            $extension = $file->getClientOriginalExtension();    
+            $directory = 'gardens/'. $id;
+            $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
+            $upload_success = $file->storeAs($directory, $filename,'photos');
+            $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
+            if ($upload_success && $ext_upload_success) {
+                if(!$garden->GardenPicture){
+                    $garden->GardenPicture = 'photos/gardens/'. $id.'/'.$filename;
+                    $garden->save();
+                }
+                $photo = new PhotosPerGarden();
+                $photo->IdGarden = $id;
+                $photo->Photo = 'photos/gardens/'. $id.'/'.$filename;
+                $photo->save();
+            }
+        }
+    }
+    
     
     public function storeReview($id){
         
@@ -152,9 +181,26 @@ class GardenController extends Controller
     public function insertSale(Request $request, $id)
     {
         $sale = new Sale;
+        $sale->IdClient = Input::get('IdClient');
+        $sale->IdGarden = $id;
+        $products = Input::get('harvests');
+        $quantities = Input::get('quantities');
+        $sale->TotalPrice = 0;
         
-        $garden->save();
-        return redirect(route('home'));   
+        $products = explode(',', $products[0]);
+        $quantities = explode(',', $quantities[0]);
+        $sale->save();
+        for ($i=0; $i <count($products) ; $i++) { 
+            \Log::info($products[$i]);        
+            $harvest = new HarvestBySale();
+            $harvest->IdHarvest = $products[$i];
+            $harvest->Quantity = $quantities[$i];
+            $sale->TotalPrice += $harvest->subtotal();
+            $sale->items()->save($harvest);
+        }
+        $sale->save();
+
+        return redirect(route('sales'));   
     }
 
     public function trades($id)
@@ -170,6 +216,31 @@ class GardenController extends Controller
     public function createTrade($id)
     {
         return view('gardens/admin/Trade/create', ['garden' => Garden::findOrFail($id)]);
+    }
+
+    public function insertTrade($id)
+    {
+        $trade = new Trade;
+        $trade->IdClient = Input::get('IdClient');
+        $trade->IdGarden = $id;
+        $products = Input::get('harvests');
+        $quantities = Input::get('quantities');
+        $trade->TotalPrice = 0;
+        
+        $products = explode(',', $products[0]);
+        $quantities = explode(',', $quantities[0]);
+        $trade->save();
+        for ($i=0; $i <count($products) ; $i++) { 
+            \Log::info($products[$i]);        
+            $harvest = new HarvestBySale();
+            $harvest->IdHarvest = $products[$i];
+            $harvest->Quantity = $quantities[$i];
+            $trade->TotalPrice += $harvest->subtotal();
+            $trade->items()->save($harvest);
+        }
+        $trade->save();
+
+        return redirect(route('trades'));   
     }
     /**
      * Show the form for editing the specified resource.

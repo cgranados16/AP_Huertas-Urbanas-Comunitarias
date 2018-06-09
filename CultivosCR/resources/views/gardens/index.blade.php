@@ -169,7 +169,7 @@
                         <ul class="nav-reviews push">
                             @if($garden->myReview())
                                 <li>
-                                    <a href="be_pages_generic_profile.php">
+                                    <a href="{{url('garden/'.$garden->id.'/reviews')}}">
                                         <img class="img-avatar" src="{{ asset(Auth::user()->photo()) }}" alt=""> {{$garden->myReview()->user->getFullNameAttribute()}}
                                         <small>{{$garden->myReview()->Date->diffForHumans()}}</small>
                                         <div class="js-rating-read" data-score="{{$garden->myReview()->Score}}" data-star-on="fa fa-fw fa-star text-primary" data-star-off="fa fa-fw fa-star text-muted"></div>
@@ -179,7 +179,7 @@
                             @endif
                             @foreach ($garden->reviews->where('IdClient','!=',Auth::id())->take(2) as $review)
                             <li>
-                                <a href="be_pages_generic_profile.php">
+                                <a href="{{url('garden/'.$garden->id.'/reviews')}}">
                                     <img class="img-avatar" src="{{ asset($review->user->photo()) }}" alt=""> {{$review->user->getFullNameAttribute()}}
                                     <small>{{$review->Date->diffForHumans()}}</small>
                                     <div class="js-rating-read" data-score="{{$review->Score}}" data-star-on="fa fa-fw fa-star text-primary" data-star-off="fa fa-fw fa-star text-muted"></div>
