@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('/img/favicons/favicon-192x192.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicons/apple-touch-icon-180x180.png') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    
     <link rel="stylesheet" id="css-main" href="{{ asset('css/codebase.min.css') }}">
     <link rel="stylesheet" id="css-theme" href="{{ asset('css/themes/flat.min.css') }}">
     @yield('styles')
@@ -66,8 +67,15 @@
                             <i class="fa fa-angle-down ml-5"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right min-width-150" aria-labelledby="page-header-user-dropdown">
+                            <a class="dropdown-item" href="{{ url('users/profile') }}">
+                                <i class="fa fa-user mr-5"></i> Mi Perfil
+                            </a>
                             <a class="dropdown-item" href="{{ url('favoriteGardens') }}">
                                 <i class="fa fa-star mr-5"></i> Mis favoritos
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url('users/profile/edit') }}" data-toggle="layout" data-action="side_overlay_toggle">
+                                <i class="si si-wrench mr-5"></i> Ajustes
                             </a>
                             <a class="dropdown-item">
                                 <a href="{!! url('/logout') !!}" class="dropdown-item"

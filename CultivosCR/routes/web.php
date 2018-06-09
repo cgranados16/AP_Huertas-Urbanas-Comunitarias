@@ -18,7 +18,10 @@ Route::get('/', function () {
 Route::get('/map', 'MapController@index')->name('map');
 
 Route::get('users/profile', 'UserController@profile');
-Route::get('users/profile/edit', 'UserController@edit');
+Route::get('users/profile/edit', 'UserController@edit')->name('user.edit');
+Route::post('users/profile/edit/profile', 'UserController@updateProfile')->name('user.updateProfile');
+Route::post('users/profile/edit/password', 'UserController@updatePassword')->name('user.updatePassword');
+Route::post('users/profile/edit/info', 'UserController@updateInfo')->name('user.updateInfo');
 Route::get('users/{id}', 'UserController@show');
 Route::get('/favoriteGardens', 'UserController@favoriteGardens');
 Auth::routes();

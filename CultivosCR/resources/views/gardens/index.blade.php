@@ -81,7 +81,7 @@
             <div class="col-lg-4 col-xl-6">
                 <!-- Products -->
                 <h2 class="content-heading">
-                    <a href="u-garden-products.html">
+                    <a href="{{url('garden/'.$garden->id.'/products')}}">
                         <button type="button" class="btn btn-sm btn-rounded btn-alt-secondary float-right">Ver más...</button>
                     </a>
                     <i class="fa fa-box"></i>Productos
@@ -108,7 +108,7 @@
                 <!--Photos -->
 
                 <h2 class="content-heading pt-20">
-                    <a href="u-garden-photos.html">
+                    <a href="{{url('garden/'.$garden->id.'/photos')}}">
                         <button type="button" class="btn btn-sm btn-rounded btn-alt-secondary float-right">Ver todas</button>
                     </a>
                     Fotos
@@ -190,7 +190,7 @@
                         </ul>
                     </div>
                     <div class="footer-button">
-                        <a href="u-garden-reviews.html">
+                        <a href="{{url('garden/'.$garden->id.'/reviews')}}">
                             <button type="button" class="btn btn-outline-primary btn-noborder">Ver todas</button>
                         </a>
                     </div>

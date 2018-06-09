@@ -1,198 +1,223 @@
 @extends('layouts.app')
-
+@section('styles')
+<link rel="stylesheet" id="css-main" href="{{ asset('js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+@endsection
 @section('content')
+
+<div class="bg-primary-dark-op py-30">
+</div>
+
 <div class="content">
     <div class="my-50 text-center">
-        <h2 class="font-w700 text-black mb-10">John Smith</h2>
-        <h3 class="h5 text-muted mb-0">Crypto Investor</h3>
+        <h2 class="font-w700 text-black mb-10">{{$user->getFullNameAttribute()}}</h2>
     </div>
+    @include('flash::message')
+    
     <div class="block block-fx-shadow">
         <div class="block-content">
-            <form action="be_pages_crypto_settings.php" method="post" onsubmit="return false;">
-                <h2 class="content-heading text-black">User Profile</h2>
+            <form action="{{route('user.updateProfile')}}" id="validate-email" method="post">
+                @csrf
+                {{ method_field('post') }}
+                <h2 class="content-heading text-black">Perfil</h2>
                 <div class="row items-push">
                     <div class="col-lg-3">
-                        <p class="text-muted">
-                            Your account’s vital info. Your nickname will be publicly visible.
-                        </p>
+
                     </div>
                     <div class="col-lg-7 offset-lg-1">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="crypto-settings-nickname">Nickname</label>
-                                <input type="text" class="form-control form-control-lg" id="crypto-settings-nickname" name="crypto-settings-nickname" placeholder="Enter your nickname.." value="John S">
+                                <label for="profile-email">Correo Electronico</label>
+                                <input type="email" class="form-control form-control-lg" id="profile-email" name="profile-email" value="{{$user->email}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="crypto-settings-email">Email Address</label>
-                                <input type="email" class="form-control form-control-lg" id="crypto-settings-email" name="crypto-settings-email" placeholder="Enter your email.." value="crypto@example.com">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-alt-primary">Update</button>
+                                <button type="submit" class="btn btn-alt-primary">Actualizar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-            <form action="be_pages_crypto_settings.php" method="post" onsubmit="return false;">
-                <h2 class="content-heading text-black">Personal Details</h2>
+            <form action="{{route('user.updatePassword')}}" class="js-validation-bootstrap" id="validate-password" method="post">
+                @csrf
+                <h2 class="content-heading text-black">Cambiar Contraseña</h2>
                 <div class="row items-push">
                     <div class="col-lg-3">
-                        <p class="text-muted">
-                            Your personal information is never shown to other users.
-                        </p>
-                    </div>
-                    <div class="col-lg-7 offset-lg-1">
-                        <div class="form-group row">
-                            <div class="col-6">
-                                <label for="crypto-settings-firstname">Firstname</label>
-                                <input type="text" class="form-control form-control-lg" id="crypto-settings-firstname" name="crypto-settings-firstname" value="John" disabled>
-                            </div>
-                            <div class="col-6">
-                                <label for="crypto-settings-lastname">Lastname</label>
-                                <input type="text" class="form-control form-control-lg" id="crypto-settings-lastname" name="crypto-settings-lastname" value="Smith" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label for="crypto-settings-street-1">Street Address 1</label>
-                                <input type="text" class="form-control form-control-lg" id="crypto-settings-street-1" name="crypto-settings-street-1">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label for="crypto-settings-street-2">Street Address 2</label>
-                                <input type="text" class="form-control form-control-lg" id="crypto-settings-street-2" name="crypto-settings-street-2">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label for="crypto-settings-city">City</label>
-                                <input type="text" class="form-control form-control-lg" id="crypto-settings-city" name="crypto-settings-city">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-6">
-                                <label for="crypto-settings-postal">Postal code</label>
-                                <input type="text" class="form-control form-control-lg" id="crypto-settings-postal" name="crypto-settings-postal">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-alt-primary">Update</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <form action="be_pages_crypto_settings.php" method="post" onsubmit="return false;">
-                <h2 class="content-heading text-black">Change Password</h2>
-                <div class="row items-push">
-                    <div class="col-lg-3">
-                        <p class="text-muted">
-                            Changing your sign in password is an easy way to keep your account secure.
-                        </p>
                     </div>
                     <div class="col-lg-7 offset-lg-1">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="crypto-settings-password">Current Password</label>
-                                <input type="password" class="form-control form-control-lg" id="crypto-settings-password" name="crypto-settings-password">
+                                <label for="password-current">Contraseña Actual</label>
+                                <input type="password" class="form-control form-control-lg" id="password-current" name="password-current">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="crypto-settings-password-new">New Password</label>
-                                <input type="password" class="form-control form-control-lg" id="crypto-settings-password-new" name="crypto-settings-password-new">
+                                <label for="assword-new">Contraseña Nueva</label>
+                                <input type="password" class="form-control form-control-lg" id="password-new" name="password-new">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="crypto-settings-password-new-confirm">Confirm New Password</label>
-                                <input type="password" class="form-control form-control-lg" id="crypto-settings-password-new-confirm" name="crypto-settings-password-new-confirm">
+                                <label for="password-new-confirm">Confirmar Contraseña Nueva</label>
+                                <input type="password" class="form-control form-control-lg" id="password-new-confirm" name="password-new-confirm">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-alt-primary">Update</button>
+                                <button type="submit" class="btn btn-alt-primary">Actualizar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-            <form action="be_pages_crypto_settings.php" method="post" onsubmit="return false;">
-                <h2 class="content-heading text-black">Security</h2>
+            <form action="{{route('user.updateInfo')}}" method="post">
+                @csrf
+                <h2 class="content-heading text-black">Información Personal</h2>
                 <div class="row items-push">
                     <div class="col-lg-3">
-                        <p class="text-muted">
-                            Keep your account as secure and as private as you like.
-                        </p>
                     </div>
-                    <div class="col-lg-3 offset-lg-1">
+                    <div class="col-lg-7 offset-lg-1">
                         <div class="form-group row">
-                            <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-5">
-                                    <input class="custom-control-input" type="checkbox" id="crypto-settings-security-status" name="crypto-settings-security-status" checked>
-                                    <label class="custom-control-label" for="crypto-settings-security-status">Online Status</label>
-                                </div>
-                                <div class="text-muted">Show your status to all</div>
+                            <div class="col-6">
+                                <label for="first_name">Nombre</label>
+                                <input type="text" class="form-control form-control-lg" id="first_name" name="first_name" value="{{$user->first_name}}">
+                            </div>
+                            <div class="col-6">
+                                <label for="last_name">Apellido</label>
+                                <input type="text" class="form-control form-control-lg" id="last_name" name="last_name"  value="{{$user->last_name}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-5">
-                                    <input class="custom-control-input" type="checkbox" id="crypto-settings-security-verify" name="crypto-settings-security-verify">
-                                    <label class="custom-control-label" for="crypto-settings-security-verify">Verify on Login</label>
-                                </div>
-                                <div class="text-muted">Most secure option</div>
+                                <label for="birth_date">Fecha de Nacimiento</label>
+                                <input type="text" class="js-datepicker form-control js-datepicker-enabled" id="birth_date" name="birth_date" data-week-start="1"
+                                    data-autoclose="true" data-today-highlight="true" data-date-format="yyyy/mm/dd"
+                                placeholder="yyyy/mm/dd" value="{{$user->birth_date}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12">Género</label>
+                            <div class="col-6">
+                                <label class="css-control css-control-primary css-radio">
+                                    <input type="radio" class="css-control-input" name="gender" value="M" @if($user->gender=="M")checked="checked"@endif required>
+                                    <span class="css-control-indicator"></span> Masculino
+                                </label>
+                                <label class="css-control css-control-primary css-radio mr-10">
+                                    <input type="radio" class="css-control-input" name="gender" value="F" @if($user->gender=="F")checked="checked"@endif required>
+                                    <span class="css-control-indicator"></span> Femenino
+                                </label>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-5">
-                                    <input class="custom-control-input" type="checkbox" id="crypto-settings-security-updates" name="crypto-settings-security-updates" checked>
-                                    <label class="custom-control-label" for="crypto-settings-security-updates">Auto Updates</label>
-                                </div>
-                                <div class="text-muted">Keep app updated</div>
+                                <button type="submit" class="btn btn-alt-primary">Actualizar</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-5">
-                                    <input class="custom-control-input" id="crypto-settings-security-notifications" name="crypto-settings-security-notifications" type="checkbox" checked>
-                                    <label class="custom-control-label" for="crypto-settings-security-notifications">Notifications</label>
-                                </div>
-                                <div class="text-muted">For every transaction</div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-5">
-                                    <input class="custom-control-input" id="crypto-settings-security-api" name="crypto-settings-security-api" type="checkbox" checked>
-                                    <label class="custom-control-label" for="crypto-settings-security-api">API Access</label>
-                                </div>
-                                <div class="text-muted">Enable access from third party apps</div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-5">
-                                    <input class="custom-control-input" id="crypto-settings-security-2fa" name="crypto-settings-security-2fa" type="checkbox">
-                                    <label class="custom-control-label" for="crypto-settings-security-2fa">Two Factor Auth</label>
-                                </div>
-                                <div class="text-muted">Using an authenticator</div>
-                            </div>
-                        </div>
+                        </div>                     
                     </div>
                 </div>
             </form>
+           
         </div>
     </div>
 </div>
 
+@endsection
+@section('scripts')
+    
+    <script src="{{ asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+    <script>
+        var BeFormValidation = function() {
+            // Init Bootstrap Forms Validation, for more examples you can check out https://github.com/jzaefferer/jquery-validation
+            var initValidationBootstrap = function(){
+                $('#validate-profile').validate({
+                    ignore: [],
+                    errorClass: 'invalid-feedback animated fadeInDown',
+                    errorElement: 'div',
+                    errorPlacement: function(error, e) {
+                        jQuery(e).parents('.form-group > div').append(error);
+                    },
+                    highlight: function(e) {
+                        jQuery(e).closest('.form-group').removeClass('is-invalid').addClass('is-invalid');
+                    },
+                    success: function(e) {
+                        jQuery(e).closest('.form-group').removeClass('is-invalid');
+                        jQuery(e).remove();
+                    },
+                    rules: {
+                        'profile-email': {
+                            required: true,
+                            email: true
+                        }
+                    },
+                    messages: {
+                        'profile-email': 'Ingrese un correo electrónico válido',
+                    }
+                });
+                $('#validate-password').validate({
+                    ignore: [],
+                    errorClass: 'invalid-feedback animated fadeInDown',
+                    errorElement: 'div',
+                    errorPlacement: function(error, e) {
+                        jQuery(e).parents('.form-group > div').append(error);
+                    },
+                    highlight: function(e) {
+                        jQuery(e).closest('.form-group').removeClass('is-invalid').addClass('is-invalid');
+                    },
+                    success: function(e) {
+                        jQuery(e).closest('.form-group').removeClass('is-invalid');
+                        jQuery(e).remove();
+                    },
+                    rules: {
+                        'profile-email': {
+                            required: true,
+                            email: true
+                        },
+                        'password-current': {
+                            required: true,
+                            minlength: 6
+                        },
+                        'password-new': {
+                            required: true,
+                            minlength: 6
+                        },
+                        'password-new-confirm': {
+                            required: true,
+                            equalTo: '#password-new'
+                        }
+                    },
+                    messages: {
+                        'profile-email': 'Ingrese un correo electrónico válido',
+                        'password-current': {
+                            required: 'Ingrese una contraseña',
+                            minlength: 'La contraseña debe tener al menos 6 caracteres'
+                        },
+                        'password-new': {
+                            required: 'Ingrese una contraseña',
+                            minlength: 'La contraseña debe tener al menos 6 caracteres'
+                        },
+                        'password-new-confirm': {
+                            required: 'Ingrese una contraseña',
+                            minlength: 'La contraseña debe tener al menos 6 caracteres',
+                            equalTo: 'Las contraseñas no coinciden'
+                        }
+                    }
+                });
+            };
+            
+            return {
+                init: function () {
+                    // Init Bootstrap Forms Validation
+                    initValidationBootstrap();
+                }
+            };
+    }();
+    jQuery(function () {
+        BeFormValidation.init();
+        $('.js-datepicker').datepicker();
+        Codebase.helpers(['datepicker']);
+    });
+    </script>
 @endsection
