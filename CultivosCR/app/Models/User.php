@@ -41,4 +41,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Garden::class,'favorite_gardens','IdClient','IdGarden');
     }
 
+    public function photo()
+    {
+        if ($this->photo){
+            return $this->photo;
+        }else{
+            return 'photos/users/default.png';
+        }
+    }
+
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Hash;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
@@ -65,6 +66,24 @@ class UserController extends Controller
         return redirect(route('user.edit'));
     }
 
+    public function updatePhoto(){
+        $user = Auth::user();
+        $file = Input::file('file');
+        if ($file){   
+            $time = Carbon::now();
+            $extension = $file->getClientOriginalExtension();    
+            $directory = 'users/'. $user->id;
+            $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
+            $upload_success = $file->storeAs($directory, $filename,'photos');
+            $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
+            if ($upload_success && $ext_upload_success) {
+                $user->photo = 'photos/users/'. $user->id.'/'.$filename;
+                $user->save();
+                flash('Foto de Perfil actualizada  correctamente')->success();
+            }
+        }
+        // return redirect(route('user.edit'));
+    }
 
     public function show($id)
     {

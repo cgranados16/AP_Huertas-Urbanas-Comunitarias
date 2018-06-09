@@ -150,7 +150,7 @@
                         @if(!$garden->myReview())
                             <div class="clearfix">
                                 <div class="float-left">
-                                    <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt="">
+                                    <img class="img-avatar" src="{{ asset(Auth::user()->photo()) }}" alt="">
                                 </div>
                                 <div class="float-left p-5 m l-10">
                                     @auth
@@ -170,7 +170,7 @@
                             @if($garden->myReview())
                                 <li>
                                     <a href="be_pages_generic_profile.php">
-                                        <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt=""> {{$garden->myReview()->user->getFullNameAttribute()}}
+                                        <img class="img-avatar" src="{{ asset(Auth::user()->photo()) }}" alt=""> {{$garden->myReview()->user->getFullNameAttribute()}}
                                         <small>{{$garden->myReview()->Date->diffForHumans()}}</small>
                                         <div class="js-rating-read" data-score="{{$garden->myReview()->Score}}" data-star-on="fa fa-fw fa-star text-primary" data-star-off="fa fa-fw fa-star text-muted"></div>
                                         <div class="font-w400 font-size-xs text-muted">{{$garden->myReview()->Description}}</div>
@@ -180,7 +180,7 @@
                             @foreach ($garden->reviews->where('IdClient','!=',Auth::id())->take(2) as $review)
                             <li>
                                 <a href="be_pages_generic_profile.php">
-                                    <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt=""> {{$review->user->getFullNameAttribute()}}
+                                    <img class="img-avatar" src="{{ asset($review->user->photo()) }}" alt=""> {{$review->user->getFullNameAttribute()}}
                                     <small>{{$review->Date->diffForHumans()}}</small>
                                     <div class="js-rating-read" data-score="{{$review->Score}}" data-star-on="fa fa-fw fa-star text-primary" data-star-off="fa fa-fw fa-star text-muted"></div>
                                     <div class="font-w400 font-size-xs text-muted">{{$review->Description}}</div>
@@ -205,7 +205,7 @@
                     <div class="col-md-6 col-xl-4">
                         <div class="block block-rounded text-center">
                             <div class="block-content block-content-full">
-                                <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt="">
+                                <img class="img-avatar" src="{{ asset($collaborator->photo()) }}" alt="">
                             </div>
                             <div class="block-content block-content-full block-content-sm bg-body-light">
                             <div class="font-w600 mb-5">{{$collaborator->getFullNameAttribute()}}</div>
@@ -232,7 +232,7 @@
                     </div>
                     <div class="block-content block-content-full">
                         <div class="push">
-                            <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt="">
+                            <img class="img-avatar" src="{{ asset( $garden->manager->photo()) }}" alt="">
                         </div>
                         <div class="font-w600 mb-5">{!! $garden->manager->getFullNameAttribute() !!}</div>
                         <div class="font-size-sm text-muted">{!! $garden->manager->email !!}</div>

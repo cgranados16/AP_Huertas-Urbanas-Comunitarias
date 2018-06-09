@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('styles')
 <link rel="stylesheet" id="css-main" href="{{ asset('js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+<link rel="stylesheet" href="{{ asset('js/plugins/dropzonejs/min/dropzone.min.css') }}"> 
+<link rel="stylesheet" href="{{ asset('css/cultivoscr.css') }}">
 @endsection
 @section('content')
 
@@ -76,6 +78,8 @@
                 <h2 class="content-heading text-black">Información Personal</h2>
                 <div class="row items-push">
                     <div class="col-lg-3">
+                            <div class="block-content block-content-full bg-image" style="background-image: url('{{ asset($user->photo()) }}');width:100%;height: 200px;">
+                            </div>
                     </div>
                     <div class="col-lg-7 offset-lg-1">
                         <div class="form-group row">
@@ -117,6 +121,9 @@
                     </div>
                 </div>
             </form>
+            {!! Form::open(['route' =>'user.updatePhoto', 'method' => 'post', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone']) !!}
+                {{ csrf_field() }}
+            {!! Form::close() !!}
            
         </div>
     </div>
@@ -128,6 +135,20 @@
     <script src="{{ asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/dropzonejs/min/dropzone.min.js')}}"></script>
+    <script>
+        Dropzone.options.myDropzone = {
+            paramName: 'file',
+            maxFilesize: 5, // MB
+            maxFiles: 20,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            init: function() {
+                this.on("success", function(file, response) {
+                    window.location.href="{{route('user.edit')}}";
+                });
+            }
+        };
+    </script>
     <script>
         var BeFormValidation = function() {
             // Init Bootstrap Forms Validation, for more examples you can check out https://github.com/jzaefferer/jquery-validation
@@ -221,3 +242,4 @@
     });
     </script>
 @endsection
+

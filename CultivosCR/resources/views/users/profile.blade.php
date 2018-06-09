@@ -5,9 +5,9 @@
     <div class="bg-gd-dusk">
         <div class="bg-black-op-25">
             <div class="content content-top content-full text-center">
-                <div class="mb-20">
-                    <a class="img-link" href="be_pages_ecom_customer.html">
-                        <img class="img-avatar img-avatar-thumb" src="{{ asset('photos/users/default.png') }}" alt="">
+                <div class="mb-15">
+                    <a class="img-link" href="{{ asset($user->photo()) }}">
+                        <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{ asset($user->photo()) }}" alt="">                        
                     </a>
                 </div>
                 <h1 class="h3 text-white font-w700 mb-10">
@@ -22,7 +22,7 @@
     <div class="content">
         <!-- Overview -->
         <h2 class="content-heading">Overview</h2>
-        <div class="row gutters-tiny">
+        {{-- <div class="row gutters-tiny">
             <!-- Orders -->
             <div class="col-md-6 col-xl-3">
                 <a class="block block-rounded block-link-shadow" href="javascript:void(0)">
@@ -72,7 +72,7 @@
                             <div class="font-size-h2 font-w700 mb-0 text-info">
                                 <i class="fa fa-pencil"></i>
                             </div>
-                            <div class="font-size-sm font-w600 text-uppercase text-muted">Edit Customer</div>
+                            <div class="font-size-sm font-w600 text-uppercase text-muted">Ajustes</div>
                         </div>
                     </div>
                 </a>
@@ -264,7 +264,7 @@
                 </table>
                 <!-- END Orders Table -->
             </div>
-        </div>
+        </div> --}}
         <!-- END Past Orders -->
     </div>
     <!-- END Page Content -->

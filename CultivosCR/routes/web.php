@@ -22,6 +22,7 @@ Route::get('users/profile/edit', 'UserController@edit')->name('user.edit');
 Route::post('users/profile/edit/profile', 'UserController@updateProfile')->name('user.updateProfile');
 Route::post('users/profile/edit/password', 'UserController@updatePassword')->name('user.updatePassword');
 Route::post('users/profile/edit/info', 'UserController@updateInfo')->name('user.updateInfo');
+Route::post('users/profile/edit/photo', 'UserController@updatePhoto')->name('user.updatePhoto');
 Route::get('users/{id}', 'UserController@show');
 Route::get('/favoriteGardens', 'UserController@favoriteGardens');
 Auth::routes();
