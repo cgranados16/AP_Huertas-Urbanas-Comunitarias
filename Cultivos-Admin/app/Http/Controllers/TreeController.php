@@ -96,7 +96,6 @@ class TreeController extends AppBaseController
                 }
             }
         }
-        
     }
 
     /**

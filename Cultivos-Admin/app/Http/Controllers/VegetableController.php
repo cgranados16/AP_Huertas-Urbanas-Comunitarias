@@ -11,12 +11,14 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Lang;
-
+use Carbon\Carbon;
 use App\Models\Catalogs\ColorCatalog;
 use App\Models\Catalogs\VegetableTypeCatalog;
 use App\Models\Catalogs\VegetablePropertiesCatalog;
 use DataTables;
+use Illuminate\Support\Facades\Input;
 use App\Models\Vegetable;
+use App\Models\PhotosPerVegetable;
 
 class VegetableController extends AppBaseController
 {
@@ -77,14 +79,41 @@ class VegetableController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateVegetableRequest $request)
+    public function store()
     {
-        $input = $request->all();
-
-        $vegetable = $this->vegetableRepository->create($input);
+        $vegetable = new Vegetable();
+        $vegetable->Name = Input::get('Name');
+        $vegetable->Color = Input::get('Color');
+        $vegetable->Type = Input::get('Type');
+        $vegetable->save();
+        $properties = Input::get('properties');  
+        $vegetable->properties()->attach($properties);
+        
+        $files = Input::file('file');
+        if ($files){
+            $this->storePhotos($vegetable->id,$files);
+        }
         Flash::success(Lang::get('/vegetables.success'));
-
         return redirect(route('vegetables.index'));
+    }
+
+    public function storePhotos($id, $files)
+    {
+        $time = Carbon::now();
+        foreach($files as $file){
+            $extension = $file->getClientOriginalExtension();    
+            $directory = 'vegetables/'. $id;
+            $filename = str_random(5).date_format($time,'d').rand(1,9).date_format($time,'h').".".$extension;
+            $upload_success = $file->storeAs($directory, $filename,'photos');
+            $ext_upload_success = $file->storeAs($directory, $filename,'ext_photos');
+            if ($upload_success && $ext_upload_success) {
+                $photo = new PhotosPerVegetable();
+                $photo->IdVegetable = $id;
+                $photo->Photo = 'photos/vegetables/'. $id.'/'.$filename;
+                $photo->save();
+            }
+        }
+    
     }
 
     /**
@@ -139,15 +168,19 @@ class VegetableController extends AppBaseController
      */
     public function update($id, UpdateVegetableRequest $request)
     {
-        $vegetable = $this->vegetableRepository->findWithoutFail($id);
+        $vegetable = Vegetable::find($id);
+        $vegetable->Name = Input::get('Name');
+        $vegetable->Color = Input::get('Color');
+        $vegetable->Type = Input::get('Type');
+        $vegetable->save();
+        $properties = Input::get('properties');  
+        $vegetable->properties()->attach($properties);
+        
+        $files = Input::file('file');
 
-        if (empty($vegetable)) {
-            Flash::error(Lang::get('/vegetables.not found'));
-
-            return redirect(route('vegetables.index'));
+        if ($files){
+            $this->storePhotos($vegetable->id,$files);
         }
-
-        $vegetable = $this->vegetableRepository->update($request->all(), $id);
 
         Flash::success(Lang::get('/vegetables.update'));
 
@@ -164,13 +197,20 @@ class VegetableController extends AppBaseController
     public function destroy($id)
     {
         $vegetable = $this->vegetableRepository->findWithoutFail($id);
-
+        
         if (empty($vegetable)) {
             Flash::error(Lang::get('/vegetables.not found'));
 
             return redirect(route('vegetables.index'));
         }
-
+        $vegetable->properties()->detach();
+        $photos = Vegetable::find($id);
+        $photos = $photos->photos;
+        if ($photos){
+            foreach ($photos as $photo) {
+               $photo->delete();
+            }
+        }
         $this->vegetableRepository->delete($id);
 
         Flash::success(Lang::get('/vegetables.success'));
@@ -178,32 +218,10 @@ class VegetableController extends AppBaseController
         return redirect(route('vegetables.index'));
     }
 
-    public function photos_upload(){
+    public function destroyPhoto()
+    {
+        $id = Input::get('id');
+        PhotosPerVegetable::destroy($id);
+    }
 
-		$input = Input::all();
-		$rules = array(
-		    'file' => 'image|max:3000',
-		);
-
-		$validation = Validator::make($input, $rules);
-
-		if ($validation->fails())
-		{
-			return Response::make($validation->errors->first(), 400);
-		}
-
-		$file = Input::file('file');
-
-        $extension = File::extension($file['name']);
-        $directory = path('public').'uploads/'.sha1(time());
-        $filename = sha1(time().time()).".{$extension}";
-
-        $upload_success = Input::upload('file', $directory, $filename);
-
-        if( $upload_success ) {
-        	return Response::json('success', 200);
-        } else {
-        	return Response::json('error', 400);
-        }
-	}
 }

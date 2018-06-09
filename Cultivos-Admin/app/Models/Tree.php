@@ -52,7 +52,7 @@ class Tree extends Model
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     **/
+    **/
     public function treeOrderCatalog()
     {
         return $this->hasOne(\App\Models\TreeOrderCatalog::class, 'id');

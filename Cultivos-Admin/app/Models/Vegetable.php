@@ -58,5 +58,10 @@ class Vegetable extends Model
         return $this->belongsToMany(VegetablePropertiesCatalog::class, 'properties_per_vegetable','Vegetable','Property');
     }
 
+    public function photos()
+    {
+        return $this->hasMany(PhotosPerVegetable::class,'IdVegetable','id');
+    }
+
     
 }

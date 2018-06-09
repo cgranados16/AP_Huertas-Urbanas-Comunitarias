@@ -63,6 +63,7 @@ Route::get('catalogs/fertilizerCatalogs/{fertilizerCatalogs}/edit', ['as'=> 'cat
 Route::resource('trees', 'TreeController');
 Route::post('trees/photo', 'TreeController@destroyPhoto')->name('trees.destroy_photo');
 Route::get('vegetables/getdata', 'VegetableController@getVegetables')->name('vegetables/getdata');
+Route::post('trees/photo', 'TreeController@destroyPhoto')->name('trees.destroy_photo');
 Route::resource('vegetables', 'VegetableController');
 Route::post('vegetables/photo', 'VegetableController@destroyPhoto')->name('vegetables.destroy_photo');
 Route::post('vegetables/create/photos', ['as'=> 'vegetables.create.store', 'uses' => 'VegetableController@photos_upload']);

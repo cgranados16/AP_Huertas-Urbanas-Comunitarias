@@ -10,7 +10,8 @@
 </section>
 
 @include('adminlte-templates::common.errors')
-{!! Form::open(['route' => 'vegetables.store']) !!}
+{!! Form::open(['route' => 'vegetables.store', 'method' => 'POST', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone']) !!}
+    {!! csrf_field() !!}
     @include('vegetables.fields')
 {!! Form::close() !!}
 
@@ -32,27 +33,27 @@
         Codebase.helpers(['maxlength', 'select2']);
     });
 
-    Dropzone.options.myDropzone = {
-        // Prevents Dropzone from uploading dropped files immediately
+     Dropzone.options.myDropzone = {
         autoProcessQueue: false,
+        uploadMultiple: true,
+        maxFiles: 10,
+        parallelUploads: 10,
         addRemoveLinks: true,
-
+        
         init: function() {
-        var submitButton = document.querySelector("#submit-all")
-        myDropzone = this; // closure
-
-        submitButton.addEventListener("click", function() {
-            alert('caca');
-            //myDropzone.processQueue(); // Tell Dropzone to process all queued files.
-        });
-
-        // You might want to show the submit button only when 
-        // files are dropped here:
-        this.on("addedfile", function() {
-            // Show submit button here and/or inform user to click it.
-        });
-
+            var submitBtn = document.querySelector("#submit");
+            myDropzone = this;
+            
+            submitBtn.addEventListener("click", function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                myDropzone.processQueue();
+            });  
+            this.on("successmultiple", function(files, response) {
+                window.location.href="{{route('vegetables.index')}}";
+            });
         }
+
     };
 </script>
 @endsection
