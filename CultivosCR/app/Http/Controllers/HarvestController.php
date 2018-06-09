@@ -109,6 +109,13 @@ class HarvestController extends Controller
         $harvest->delete();
         return redirect('admin/garden/'.$id.'/products');
     }
+
+    public function photo()
+    {
+        $id = Input::get('id');
+        $harvest = Harvest::find($id);
+        return asset($harvest->harvest->photos->first()->Photo);
+    }
     
     
 

@@ -217,4 +217,8 @@ class GardenController extends Controller
     {
         $favorite = FavoriteGardens::where('IdClient',Auth::id())->where('IdGarden',$id)->delete();
     }
+
+    
+
+
 }

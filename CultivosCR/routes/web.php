@@ -50,3 +50,4 @@ Route::post('garden/{id}/unfollow', 'GardenController@unfollow');
 Route::get('garden/{id}/estadistica', 'GardenController@estadistica');
 
 Route::resource('admin/garden/{id}/harvest', 'HarvestController');
+Route::get('harvest/Photo', 'HarvestController@photo')->name('harvest.photo');
