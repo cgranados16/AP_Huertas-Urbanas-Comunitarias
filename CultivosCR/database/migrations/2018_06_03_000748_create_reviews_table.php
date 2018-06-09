@@ -14,6 +14,7 @@ class CreateReviewsTable extends Migration
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('IdGarden')->unsigned();
             $table->integer('IdClient')->unsigned();
             $table->dateTime('Date');
@@ -21,7 +22,7 @@ class CreateReviewsTable extends Migration
             $table->text('Description');
             $table->timestamps();
 
-            $table->primary(['IdGarden', 'IdClient']);
+            $table->unique(['IdGarden', 'IdClient']);
             $table->foreign('IdGarden')->references('id')->on('gardens');
             $table->foreign('IdClient')->references('id')->on('users');
         });
@@ -34,6 +35,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('revi');
+        Schema::dropIfExists('reviews');
     }
 }

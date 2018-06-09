@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ asset('js/plugins/slick/slick-theme.min.css') }}">
 <link rel="stylesheet" href="{{ asset('js/plugins/sweetalert2/sweetalert2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/cultivoscr.css') }}">
+<link rel="stylesheet" href="{{ asset('js/plugins/magnific-popup/magnific-popup.min.css') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
@@ -44,55 +45,69 @@
 </div>
 <!-- Main Content -->
 <div class="content">
-        <div class="row">
-            <!-- Garden Navigation Bar -->
-            <div class="col-lg-4 col-xl-3">
-                <div class="block block-themed">
-                    <div class="block-content block-content-full bg-image" style="background-image: url('{{ asset($garden->GardenPicture) }}');width:100%;height: 200px;">
-                    </div>
-                    <div class="block-content block-content-full block-content-sm ">
-                        <div class="font-size-xl font-w600 mb-5">{{ $garden->Name }}</div>
-                        <ul class="nav-main p-10">
-                            <li>
-                                <a href="{{url('garden/'.$garden->id)}}">
-                                    <span class="sidebar-mini-hide">Inicio</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('garden/'.$garden->id.'/products')}}">
-                                    <span class="sidebar-mini-hide">Productos</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('garden/'.$garden->id.'/photos')}}">
-                                    <span class="sidebar-mini-hide">Fotos</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{url('garden/'.$garden->id.'/reviews')}}">
-                                    <span class="sidebar-mini-hide">Opiniones</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+    <div class="row">
+        <!-- Garden Navigation Bar -->
+        <div class="col-lg-4 col-xl-3">
+            <div class="block block-themed">
+                <div class="block-content block-content-full bg-image" style="background-image: url('{{ asset($garden->GardenPicture) }}');width:100%;height: 200px;">
+                </div>
+                <div class="block-content block-content-full block-content-sm ">
+                    <div class="font-size-xl font-w600 mb-5">{{ $garden->Name }}</div>
+                    <ul class="nav-main p-10">
+                        <li>
+                            <a href="{{url('garden/'.$garden->id)}}">
+                                <span class="sidebar-mini-hide">Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('garden/'.$garden->id.'/products')}}">
+                                <span class="sidebar-mini-hide">Productos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('garden/'.$garden->id.'/photos')}}">
+                                <span class="sidebar-mini-hide">Fotos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url('garden/'.$garden->id.'/reviews')}}">
+                                <span class="sidebar-mini-hide">Opiniones</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <!-- END Garden Navigation Bar -->
+        </div>
+        <!-- END Garden Navigation Bar -->
 
-
+         <!-- Simple Gallery (.js-gallery class is initialized in Codebase() -> uiHelperMagnific()) -->
+         <div class="col-lg-4 col-xl-9">
+            <h2 class="content-heading">Fotos</h2>
+            <div class="row items-push js-gallery img-fluid-100">
+                @foreach($garden->photos as $photo)
+                <div class="col-md-6 col-lg-4 col-xl-3 animated fadeIn">
+                    <a class="img-link img-link-zoom-in img-thumb img-lightbox" href="{{ asset($photo->Photo) }}">
+                        <img class="img-fluid" src="{{ asset($photo->Photo) }}" alt="">
+                    </a>
+                </div> 
+                @endforeach                  
+            </div>
+        </div>
+        <!-- END Simple Gallery -->
+    </div>
+</div>
 
 @endsection
 @section('scripts')
-    <script>
-        var latitude = {{ $garden->Latitude }};
-        var longitude = {{ $garden->Longitude }}; 
-        var host = '{{ url("garden/$garden->id") }}';
-    </script>
     
     <script src="{{ asset('js/cultivoscr/garden-profile.js') }}"></script>
     <script src="{{ asset('js/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('js/plugins/slick/slick.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/jquery-raty/jquery.raty.min.js') }}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-59jWkkJJxeKQdF1KNUqgg7MrSWRqHt4&callback=initMap"></script>
-        
+    <script src="{{ asset('js/plugins/magnific-popup/magnific-popup.min.js') }}"></script>
+    <script>
+        jQuery(function () {
+            // Init page helpers (Magnific Popup plugin)
+            Codebase.helpers('magnific-popup');
+        });
+    </script>        
 @endsection

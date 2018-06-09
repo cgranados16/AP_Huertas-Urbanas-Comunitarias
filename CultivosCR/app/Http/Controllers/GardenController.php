@@ -61,14 +61,24 @@ class GardenController extends Controller
     }
     
     public function storeReview($id){
-        $review = new Review();
-        $review->IdClient = Auth::id();
+        
+        $review = Review::where('IdClient',Auth::id())->where('IdGarden',$id)->first();
+        if(!$review){
+            $review = new Review();
+            $review->IdClient = Auth::id();    
+        }   
+        
         $review->Date = Carbon::now();
         $review->Score = Input::get('score');
         $review->Description = Input::get('Description');
         $garden = Garden::find($id);
         $garden->reviews()->save($review);
+        
         return redirect()->back();
+    }
+
+    public function destroyReview($id){
+        Review::destroy($id);
     }
 
 /**

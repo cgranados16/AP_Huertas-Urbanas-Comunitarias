@@ -7,6 +7,7 @@ use Auth;
 
 class Garden extends Model
 {
+    
     public function manager()
     {
         return $this->belongsTo(User::class, 'IdManager');
