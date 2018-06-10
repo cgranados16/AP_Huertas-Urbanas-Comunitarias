@@ -34,6 +34,7 @@ Route::post('admin/garden/{id}/Sales/create', 'GardenController@insertSale')->na
 Route::get('admin/garden/{id}/Sales/{idSale}', 'GardenController@saledetail')->middleware('auth');
 Route::get('admin/garden/{id}/Trades', 'GardenController@trades')->name('trades')->middleware('auth');
 Route::get('admin/garden/{id}/Trades/create', 'GardenController@createTrade')->name('trades/create')->middleware('auth');
+Route::post('admin/garden/{id}/Trades/create', 'GardenController@insertTrade')->name('sales/create')->middleware('auth');
 Route::get('admin/garden/{id}/Trades/{idTrade}', 'GardenController@tradedetail')->middleware('auth');
 
 

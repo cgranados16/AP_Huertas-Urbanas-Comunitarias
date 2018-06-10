@@ -14,7 +14,7 @@
                 </a>
             </div>
             <div class="col-6">
-                <a class="block block-rounded text-center" href="{{route('sales/create',[$garden->id])}}">
+                <a class="block block-rounded text-center" href="{{route('trades/create',[$garden->id])}}">
                     <div class="block-content">
                         <p class="mt-5 mb-10">
                             <i class="fa fa-plus-square-o text-gray fa-2x d-xl-none"></i>

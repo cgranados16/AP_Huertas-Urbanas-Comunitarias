@@ -19,7 +19,7 @@
 </div>
 <!-- Main Content -->
 <!-- Progress Wizard 2 -->
-{!! Form::open(['route' => ['sales/create', $garden->id], 'method' => 'post']) !!}
+{!! Form::open(['route' => ['trades/create', $garden->id], 'method' => 'post']) !!}
     <div class="content">
         <div class="block block-rounded ">
                 <div class="block-header">
@@ -37,10 +37,11 @@
                             <input type="text" class="form-control" name="IdClient">
                         </div>
                     </div>
-                    
-                    
-                    <input type="hidden" id="harvests" name="harvests[]">
-                    <input type="hidden" id="quantities" name="quantities[]">
+                
+                    <input type="hidden" id="re_harvests" name="re_harvests[]">
+                    <input type="hidden" id="re_quantities" name="re_quantities[]">
+                    <input type="hidden" id="gi_harvests" name="gi_harvests[]">
+                    <input type="hidden" id="gi_quantities" name="gi_quantities[]">
                     <div class="row">
                         <div class="col-6">
                             <a href="javascript:$('#addHarvestModal').modal().show();"><button type="button" class="btn btn-primary">Agregar Nuevo Producto para Dar</button></a>
@@ -108,7 +109,7 @@
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label for="District">Productos</label>
-                                        <select id="harvestSelect" class="js-example-basic-single" name="Harvest">
+                                        <select id="gi_harvestSelect" class="js-example-basic-single" name="Harvest">
                                             <div></div>
                                             @foreach($garden->harvests as $h)
                                                 <option @if($h->harvest->photos->first()) imagesrc="{{$h->harvest->photos->first()->Photo}}" @endif value="{{$h->id}}">{{$h->harvest->Name}}</option>
@@ -119,7 +120,7 @@
                                 <div class="form-group row">
                                     <label class="col-12" for="Quantity">Cantidad</label>
                                     <div class="col-12">
-                                        <input type="text" class="form-control" id="quantity" name="Quantity">
+                                        <input type="text" class="form-control" id="gi_quantity" name="Quantity">
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +129,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="javascript:addHarvest();">
+                    <a href="javascript:giveHarvest();">
                         <button type="submit" value="Submit" class="btn btn-alt-success">Aceptar</button>
                     </a>
                 </div>
@@ -156,10 +157,13 @@
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <label for="District">Productos</label>
-                                            <select id="harvestSelect" class="js-example-basic-single" name="Harvest">
+                                            <select id="re_harvestSelect" class="js-example-basic-single" name="Harvest">
                                                 <div></div>
-                                                @foreach($garden->harvests as $h)
-                                                    <option @if($h->harvest->photos->first()) imagesrc="{{$h->harvest->photos->first()->Photo}}" @endif value="{{$h->id}}">{{$h->harvest->Name}}</option>
+                                                @foreach($trees as $tree)
+                                                    <option @if($tree->photos->first()) imagesrc="{{$tree->photos->first()->Photo}}" @endif value="{{$tree->id}}">Arbol - {{$tree->Name}}</option>
+                                                @endforeach
+                                                @foreach($vegetables as $tree)
+                                                    <option @if($tree->photos->first()) imagesrc="{{$tree->photos->first()->Photo}}" @endif value="{{$tree->id}}">Hortaliza - {{$tree->Name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -167,7 +171,7 @@
                                     <div class="form-group row">
                                         <label class="col-12" for="Quantity">Cantidad</label>
                                         <div class="col-12">
-                                            <input type="text" class="form-control" id="quantity" name="Quantity">
+                                            <input type="text" class="form-control" id="re_quantity" name="Quantity">
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +180,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Cerrar</button>
-                        <a href="javascript:addHarvest();">
+                        <a href="javascript:receiveHarvest();">
                             <button type="submit" value="Submit" class="btn btn-alt-success">Aceptar</button>
                         </a>
                     </div>
@@ -187,8 +191,10 @@
 <script src="{{ asset('js/core/jquery.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
-    var products = []
-    var quantities = []
+    var re_products = []
+    var re_quantities = []
+    var gi_products = []
+    var gi_quantities = []
     $(document).ready(function () {
         $('.js-example-basic-single').select2({width: '100%'});   
         $('#harvestSelect').on("select2:selecting", function(e) { 
@@ -198,13 +204,13 @@
     });
    
 
-    function addHarvest(){
-        var product = $('#harvestSelect option:selected').attr('value');
-        var quantity = $('#quantity').val();
-        products.push(product);
-        quantities.push(quantity);
-        $('#harvests').val(products);
-        $('#productsTable tr:last').after(
+    function giveHarvest(){
+        var product = $('#gi_harvestSelect option:selected').attr('value');
+        var quantity = $('#gi_quantity').val();
+        gi_products.push(product);
+        gi_quantities.push(quantity);
+        $('#gi_harvests').val(gi_products);
+        $('#givingTable tr:last').after(
         `<tr>
             <td>`+product+`</td>
             <td>`+quantity+`</td>
@@ -215,7 +221,27 @@
             </td>
         </tr>     
         `);
-        $('#quantities').val(quantities);
+        $('#gi_quantities').val(gi_quantities);
+    }
+
+    function receiveHarvest(){
+        var product = $('#re_harvestSelect option:selected').attr('value');
+        var quantity = $('#re_quantity').val();
+        re_products.push(product);
+        re_quantities.push(quantity);
+        $('#re_harvests').val(re_products);
+        $('#receivingTable tr:last').after(
+        `<tr>
+            <td>`+product+`</td>
+            <td>`+quantity+`</td>
+            <td>
+                <button type="button"  class="btn btn-sm btn-secondary" data-toggle="tooltip" title="" data-original-title="{{Lang::get('common.edit')}}">
+                    <a href="#"><i class="fa fa-times"></i></a>
+                </button>
+            </td>
+        </tr>     
+        `);
+        $('#re_quantities').val(re_quantities);
     }
 
     function getGardenPhoto(id){
