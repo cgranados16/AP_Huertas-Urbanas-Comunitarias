@@ -217,6 +217,7 @@ class GardenController extends Controller
     {
         return view('gardens/admin/Trade/create', ['garden' => Garden::findOrFail($id)]);
     }
+  
 
     public function insertTrade($id)
     {

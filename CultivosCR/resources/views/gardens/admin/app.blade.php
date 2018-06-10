@@ -80,7 +80,7 @@
                             <li>
                                 <a class="active" href="{{url('admin/garden/'.$garden->id.'/Trades')}}">
                                     <i class="si si-docs"></i>
-                                    <span class="sidebar-mini-hide">Trueques</span>
+                                    <span class="sidebar-mini-hide">Intercambios</span>
                                 </a>
                             </li>
                         </ul>
