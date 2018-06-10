@@ -35,19 +35,16 @@
                             <div class="content-header-item">
                                 <a class="link-effect font-w700" href="{{url('admin/garden/'.$garden->id)}}">
                                     <i class="si si-fire text-primary"></i>
-                                    <span class="font-size-xl text-dual-primary-dark">code</span>
-                                    <span class="font-size-xl text-primary">base</span>
+                                    <span class="font-size-xl text-dual-primary-dark">Cultivos</span>
+                                    <span class="font-size-xl text-primary">CR</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="content-side content-side-full content-side-user px-10 align-parent">
-                        <div class="sidebar-mini-visible-b align-v animated fadeIn">
-                            <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar11.jpg" alt="">
-                        </div>
                         <div class="sidebar-mini-hidden-b text-center">
-                            <a class="img-link" href="javascript:void(0)">
-                                <img class="img-avatar" src="{{ asset('photos/users/default.png') }}" alt="">
+                            <a class="img-link" href="{{url('garden/'.$garden->id)}}">
+                                <img class="img-avatar" src="{{ asset($garden->GardenPicture) }}" alt="">
                             </a>
                             <ul class="list-inline mt-10">
                                 <li class="list-inline-item">
@@ -60,6 +57,13 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
+                                <a class="active" href="{{url('garden/'.$garden->id)}}">
+                                    <i class="fa fa-tree"></i>
+                                    <span class="sidebar-mini-hide">Página de la Tienda</span>
+                                </a>
+                            </li>
+                            <li class="nav-main-heading"><span class="sidebar-mini-visible">UI</span><span class="sidebar-mini-hidden">Administrar</span></li>
+                            <li>
                                 <a class="active" href="{{url('admin/garden/'.$garden->id)}}">
                                     <i class="fa fa-hospital-o"></i>
                                     <span class="sidebar-mini-hide">Dashboard</span>
@@ -67,20 +71,26 @@
                             </li>
                             <li>
                                 <a class="active" href="{{url('admin/garden/'.$garden->id.'/products')}}">
-                                    <i class="si si-docs"></i>
+                                    <i class="fa fa-archive"></i>
                                     <span class="sidebar-mini-hide">Productos</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="active" href="{{url('admin/garden/'.$garden->id.'/Sales')}}">
-                                    <i class="si si-docs"></i>
+                                    <i class="fa fa-dollar"></i>
                                     <span class="sidebar-mini-hide">Ventas</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="active" href="{{url('admin/garden/'.$garden->id.'/Trades')}}">
-                                    <i class="si si-docs"></i>
+                                    <i class="fa fa-exchange"></i>
                                     <span class="sidebar-mini-hide">Intercambios</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="active" href="{{url('admin/garden/'.$garden->id.'/Collaborators')}}">
+                                    <i class="fa fa-user"></i>
+                                    <span class="sidebar-mini-hide">Colaboradores</span>
                                 </a>
                             </li>
                         </ul>

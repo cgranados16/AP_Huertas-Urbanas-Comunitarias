@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Hash;
+use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 
@@ -94,4 +95,14 @@ class UserController extends Controller
     {
         return view('users/favoriteGardens', ['user' => Auth::user()]);
     }
+
+    public function photo($email)
+    {
+        $user = User::where('email',$email)->first();
+        if($user){
+            return Image::make(asset($user->photo))->response();
+        }
+        return Image::make(asset('photos/users/default.png'))->response();
+    }
+
 }

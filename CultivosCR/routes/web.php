@@ -24,6 +24,7 @@ Route::post('users/profile/edit/password', 'UserController@updatePassword')->nam
 Route::post('users/profile/edit/info', 'UserController@updateInfo')->name('user.updateInfo');
 Route::post('users/profile/edit/photo', 'UserController@updatePhoto')->name('user.updatePhoto');
 Route::get('users/{id}', 'UserController@show');
+Route::get('users/{email}/photo', 'UserController@photo')->name('user/photo');
 Route::get('/favoriteGardens', 'UserController@favoriteGardens');
 Auth::routes();
 
@@ -36,6 +37,10 @@ Route::get('admin/garden/{id}/Trades', 'GardenController@trades')->name('trades'
 Route::get('admin/garden/{id}/Trades/create', 'GardenController@createTrade')->name('trades/create')->middleware('auth');
 Route::post('admin/garden/{id}/Trades/create', 'GardenController@insertTrade')->name('sales/create')->middleware('auth');
 Route::get('admin/garden/{id}/Trades/{idTrade}', 'GardenController@tradedetail')->middleware('auth');
+Route::get('admin/garden/{id}/Collaborators', 'GardenController@collaborators')->name('garden/collaborators')->middleware('auth');
+Route::delete('admin/garden/{id}/Collaborators/{userId}', 'GardenController@detachCollaborators')->name('garden/collaborators')->middleware('auth');
+Route::post('admin/garden/{id}/Collaborators', 'GardenController@insertCollaborators')->name('garden/collaborators')->middleware('auth');
+
 
 
 Route::get('admin/garden/{id}', 'GardenController@showAdmin')->middleware('auth');

@@ -43,6 +43,9 @@
     <div class="content-heading">
         Administrador de Huertas
     </div>
+    <div class="content-subheading">
+        <h5 class="text-muted">Administrador en:</h5>
+    </div>
     <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
         <div class="col-md-12">
             <div class="block">
@@ -77,6 +80,27 @@
             </div>
         @endforeach
     </div>
+    <div class="content-subheading">
+        <h5 class="text-muted">Colaborando en:</h5>
+    </div>
+        <div class="row js-appear-enabled animated fadeIn" data-toggle="appear">
+            @foreach(Auth::user()->collaborating as $garden)
+                <div class="col-md-4">
+                    <div class="block">
+                        <a href="{{url('admin/garden/'.$garden->id)}}">
+                            <div class="block-content block-content-full">
+                                <div class="py-20 text-center">
+                                    <div class="mb-20">
+                                        <img class="harvest-profile-showcase" src="{{ asset($garden->GardenPicture) }}"></img>
+                                    </div>
+                                    <div class="font-size-h4 font-w600">{{$garden->Name}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
 </div>
 
 @endsection

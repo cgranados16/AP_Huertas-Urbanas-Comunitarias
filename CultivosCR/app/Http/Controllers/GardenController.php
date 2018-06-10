@@ -6,6 +6,7 @@ use App\Models\Garden;
 use App\Models\Tree;
 use App\Models\Vegetable;
 use App\Models\Sale;
+use App\Models\User;
 use App\Models\Trade;
 use App\Models\Review;
 use App\Models\PhotosPerGarden;
@@ -111,13 +112,6 @@ class GardenController extends Controller
         Review::destroy($id);
     }
 
-/**
-     * Display the specified Vegetable.
-     *
-     * @param  int $id
-     *
-     * @return Response
-     */
     public function show($id)
     {
         return view('gardens/index', ['garden' => Garden::findOrFail($id)]);
@@ -172,9 +166,33 @@ class GardenController extends Controller
         return view('gardens/admin/SalesDetail', ['garden' => Garden::findOrFail($id), 'sale' => Sale::findOrFail($idSale)]);
     }
     
-
     public function createSale($id){
         return view('gardens/admin/Sale/create', ['garden' => Garden::findOrFail($id)]);
+    }
+
+    public function collaborators($id){
+        return view('gardens/admin/collaborators', ['garden' => Garden::findOrFail($id)]);
+    }
+
+    public function insertCollaborators($id){
+        $email = Input::get('email');
+        $user = User::where('email',$email)->first();
+        if($user){
+            $garden = Garden::find($id);
+            $garden->collaborators()->attach($user);
+        }
+        return;
+    }
+
+    public function detachCollaborators($id,$userId){
+
+        $user = User::find($userId);
+        if($user){
+            $garden = Garden::find($id);
+            $garden->collaborators()->detach($user);
+        }
+        return redirect()->route('garden/collaborators',['id' => $id]);;
+        
     }
 
     public function insertSale(Request $request, $id){

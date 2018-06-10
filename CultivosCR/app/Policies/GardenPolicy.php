@@ -19,7 +19,8 @@ class GardenPolicy
      */
     public function view(User $user, Garden $garden)
     {
-        return $user->id === $garden->IdManager;
+        $collaborating = $garden->collaborators->where('id',$user->id)->first();
+        return $user->id === $garden->IdManager || $collaborating;
     }
 
     /**
